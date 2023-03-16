@@ -11,6 +11,8 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  static const double innerPadding = 32;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +22,7 @@ class HomePageState extends State<HomePage> {
         floatingActionButton: const HomePageFab(),
         drawer: const HomePageDrawer(),
         body: const Padding(
-          padding: EdgeInsets.only(bottom: 32, left: 32, right: 32),
+          padding: EdgeInsets.only(bottom: innerPadding, left: innerPadding, right: innerPadding),
           child: ChronicleEntry(),
         ));
   }
