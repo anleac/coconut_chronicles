@@ -1,6 +1,5 @@
 import 'package:coconut_chronicles/widgets/chronicle_entry.dart';
 import 'package:coconut_chronicles/widgets/home_page_drawer.dart';
-import 'package:coconut_chronicles/widgets/home_page_fab.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,7 +18,7 @@ class HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: const Text('Coconut Chronicles'),
         ),
-        floatingActionButton: const HomePageFab(),
+        // floatingActionButton: const HomePageFab(),
         drawer: const HomePageDrawer(),
         body: const Padding(
           padding: EdgeInsets.only(bottom: innerPadding, left: innerPadding, right: innerPadding),

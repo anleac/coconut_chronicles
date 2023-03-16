@@ -1,3 +1,5 @@
+import 'package:coconut_chronicles/constants/default_constants.dart';
+import 'package:coconut_chronicles/widgets/chip_categories.dart';
 import 'package:flutter/material.dart';
 
 class ChronicleEntry extends StatefulWidget {
@@ -48,12 +50,12 @@ class _ChronicleEntryState extends State<ChronicleEntry> {
         TextFormField(
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'Title',
+            labelText: 'Captive title',
           ),
           controller: _titleController,
           validator: (value) => _emptyTextValidator(value),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 8),
         Row(
           children: [
             const SizedBox(
@@ -66,12 +68,12 @@ class _ChronicleEntryState extends State<ChronicleEntry> {
             ),
           ],
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 8),
         Expanded(
           child: TextFormField(
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
-              labelText: 'Body',
+              labelText: 'Description of the day',
             ),
             maxLines: null,
             controller: _bodyController,
@@ -81,6 +83,42 @@ class _ChronicleEntryState extends State<ChronicleEntry> {
             textCapitalization: TextCapitalization.sentences,
             validator: (value) => _emptyTextValidator(value),
           ),
+        ),
+        const SizedBox(height: 8),
+        Row(children: const [
+          SizedBox(
+            width: 8,
+          ),
+          Text(
+            'Categories',
+          ),
+        ]),
+        const SizedBox(height: 8),
+        const ChipCategories(categories: DefaultConstants.defaultChipSuggestions),
+        const SizedBox(height: 8),
+        const Divider(),
+        const SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TextButton(
+              onPressed: () => {}, // TODO
+              child: const Text('Clear'),
+            ),
+            TextButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Saved chronicle entry')),
+                  );
+                }
+              },
+              child: const Text('Save'),
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+          ],
         ),
       ]),
     );
