@@ -8,13 +8,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var sharedPreferences = await SharedPreferences.getInstance();
-  
+
   runApp(ScopedModel<PreferencesModel>(
     model: PreferencesModel(sharedPreferences),
     child: const CoreApp(),
   ));
 }
-
 
 class CoreApp extends StatelessWidget {
   const CoreApp({Key? key}) : super(key: key);
@@ -27,15 +26,14 @@ class CoreApp extends StatelessWidget {
     ]);
 
     return ScopedModelDescendant<PreferencesModel>(
-      builder: (context, child, model) => MaterialApp(
-        title: 'Coconut Chronicles',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorSchemeSeed: Colors.blue,
-        ),
-        debugShowCheckedModeBanner: false,
-        home: const HomePage(),
-      )
-    );
+        builder: (context, child, model) => MaterialApp(
+              title: 'Coconut Chronicles',
+              theme: ThemeData(
+                useMaterial3: true,
+                colorSchemeSeed: Colors.blue,
+              ),
+              debugShowCheckedModeBanner: false,
+              home: const HomePage(),
+            ));
   }
 }

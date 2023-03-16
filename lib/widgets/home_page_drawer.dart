@@ -15,30 +15,21 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<PreferencesModel>(builder: (context, child, model) {
       return Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-              ),
-              child: const Text('Customize'),
-            ),
-            FutureBuilder<PackageInfo>(
+        child: ListView(padding: EdgeInsets.zero, children: [
+          DrawerHeader(
+            child: Container(),
+          ),
+          FutureBuilder<PackageInfo>(
               future: PackageInfo.fromPlatform(),
               builder: (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
                 if (snapshot.hasData) {
                   var data = snapshot.data!;
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 16.0, left: 20),
-                    child: Text(data.version));
+                  return Padding(padding: const EdgeInsets.only(top: 16.0, left: 20), child: Text(data.version));
                 }
 
                 return Container();
-              }
-            )
-          ]
-        ),
+              })
+        ]),
       );
     });
   }

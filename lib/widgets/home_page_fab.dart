@@ -12,6 +12,7 @@ class _HomePageFabState extends State<HomePageFab> {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       onPressed: () => null,
-      child: const Icon(Icons.add)); 
+      child: const Icon(Icons.add)
+    );
   }
 }
