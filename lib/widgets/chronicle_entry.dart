@@ -3,6 +3,7 @@ import 'package:coconut_chronicles/widgets/chip_categories.dart';
 import 'package:coconut_chronicles/widgets/country_selector.dart';
 import 'package:coconut_chronicles/widgets/date_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class ChronicleEntry extends StatefulWidget {
   const ChronicleEntry({Key? key}) : super(key: key);
