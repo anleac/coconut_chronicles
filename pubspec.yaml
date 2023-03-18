@@ -16,6 +16,7 @@ dependencies:
   shared_preferences: ^2.0.18
   encrypt: ^5.0.1
   sqflite: ^2.2.4+1
+  country_picker: ^2.0.20
 
 dev_dependencies:
   flutter_test:

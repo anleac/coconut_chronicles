@@ -1,6 +1,9 @@
 import 'package:coconut_chronicles/constants/default_constants.dart';
 import 'package:coconut_chronicles/widgets/chip_categories.dart';
+import 'package:coconut_chronicles/widgets/country_selector.dart';
+import 'package:coconut_chronicles/widgets/date_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class ChronicleEntry extends StatefulWidget {
   const ChronicleEntry({Key? key}) : super(key: key);
@@ -14,22 +17,7 @@ class _ChronicleEntryState extends State<ChronicleEntry> {
   final _titleController = TextEditingController();
   final _bodyController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
-
-  _openDatePicker() async {
-    var result = await showDatePicker(
-      context: context,
-      helpText: "Date of memory",
-      initialDate: _selectedDate,
-      firstDate: DateTime(2010),
-      lastDate: DateTime.now().add(const Duration(days: 30)),
-    );
-
-    if (result != null) {
-      setState(() {
-        _selectedDate = result;
-      });
-    }
-  }
+  String _country = 'No country selected';
 
   _emptyTextValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -38,15 +26,11 @@ class _ChronicleEntryState extends State<ChronicleEntry> {
     return null;
   }
 
-  _formatDate() {
-    return "${_selectedDate.year}-${_selectedDate.month}-${_selectedDate.day}";
-  }
-
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(children: [
+      child: ListView(children: [
         TextFormField(
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
@@ -56,33 +40,26 @@ class _ChronicleEntryState extends State<ChronicleEntry> {
           validator: (value) => _emptyTextValidator(value),
         ),
         const SizedBox(height: 8),
-        Row(
-          children: [
-            const SizedBox(
-              width: 8,
-            ),
-            const Text("Date: "),
-            TextButton(
-              onPressed: () => _openDatePicker(),
-              child: Text(_formatDate()),
-            ),
-          ],
+        DateSelector(
+          initialDate: _selectedDate,
+          firstDate: DateTime(2010),
+          lastDate: _selectedDate.add(const Duration(days: 31)),
+          onDateChanged: (DateTime date) => _selectedDate = date,
         ),
+        CountrySelector(initialCountry: _country, onCountryChanged: (String country) => _country = country),
         const SizedBox(height: 8),
-        Expanded(
-          child: TextFormField(
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Description of the day',
-            ),
-            maxLines: null,
-            controller: _bodyController,
-            expands: true,
-            textAlignVertical: TextAlignVertical.top,
-            keyboardType: TextInputType.multiline,
-            textCapitalization: TextCapitalization.sentences,
-            validator: (value) => _emptyTextValidator(value),
+        TextFormField(
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'Description of the day',
           ),
+          maxLines: null,
+          controller: _bodyController,
+          minLines: 12,
+          textAlignVertical: TextAlignVertical.top,
+          keyboardType: TextInputType.multiline,
+          textCapitalization: TextCapitalization.sentences,
+          validator: (value) => _emptyTextValidator(value),
         ),
         const SizedBox(height: 8),
         Row(children: const [
