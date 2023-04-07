@@ -41,13 +41,11 @@ class _CountrySelectorState extends State<CountrySelector> {
       countryListTheme: const CountryListThemeData(
         flagSize: 25,
         textStyle: TextStyle(fontSize: 16),
-        bottomSheetHeight: 500, // Optional. Country list modal height
-        //Optional. Sets the border radius for the bottomsheet.
+        bottomSheetHeight: 500,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20.0),
           topRight: Radius.circular(20.0),
         ),
-        //Optional. Styles the search field.
         inputDecoration: InputDecoration(
           labelText: 'Search',
           hintText: 'Start typing to search',
