@@ -1,5 +1,6 @@
 import 'package:coconut_chronicles/constants/default_constants.dart';
 import 'package:coconut_chronicles/core/models/entry.dart';
+import 'package:coconut_chronicles/core/storage/entry_storage.dart';
 import 'package:coconut_chronicles/widgets/entry_form_inputs/chip_categories.dart';
 import 'package:coconut_chronicles/widgets/entry_form_inputs/country_selector.dart';
 import 'package:coconut_chronicles/widgets/entry_form_inputs/date_selector.dart';
@@ -20,6 +21,15 @@ class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
   static final DateTime _defaultDate = DateTime.now();
   final _formKey = GlobalKey<FormState>();
   final EntryModel _entry = EntryModel();
+
+  _saveEntry() async {
+    var snackContext = ScaffoldMessenger.of(context);
+    await EntryStorage.saveEntry(_entry);
+    _clearData();
+    snackContext.showSnackBar(
+      const SnackBar(content: Text('Saved chronicle entry')),
+    );
+  }
 
   _clearData() {
     setState(() {
@@ -68,10 +78,7 @@ class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
             TextButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  _clearData();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Saved chronicle entry')),
-                  );
+                  _saveEntry();
                 }
               },
               child: const Text('Save'),

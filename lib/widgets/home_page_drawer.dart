@@ -1,4 +1,5 @@
 import 'package:coconut_chronicles/core/storage/preferences_model.dart';
+import 'package:coconut_chronicles/widgets/chronicle_entry_list.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -19,6 +20,8 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
           DrawerHeader(
             child: Container(),
           ),
+          const ChronicleEntryList(),
+          const Divider(),
           FutureBuilder<PackageInfo>(
               future: PackageInfo.fromPlatform(),
               builder: (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
