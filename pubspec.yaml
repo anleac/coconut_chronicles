@@ -17,6 +17,8 @@ dependencies:
   encrypt: ^5.0.1
   sqflite: ^2.2.4+1
   country_picker: ^2.0.20
+  permission_handler: ^10.2.0
+  path_provider: ^2.0.14
 
 dev_dependencies:
   flutter_test:

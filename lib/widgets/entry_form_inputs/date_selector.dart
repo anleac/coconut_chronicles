@@ -1,3 +1,4 @@
+import 'package:coconut_chronicles/core/helpers/format_helper.dart';
 import 'package:flutter/material.dart';
 
 class DateSelector extends StatefulWidget {
@@ -31,14 +32,10 @@ class _DateSelectorState extends State<DateSelector> {
         const Text("Date: "),
         TextButton(
           onPressed: () => _openDatePicker(),
-          child: Text(_formatDate()),
+          child: Text(FormatHelper.formatDate(_selectedDate)),
         ),
       ],
     );
-  }
-
-  String _formatDate() {
-    return "${_selectedDate.year}-${_selectedDate.month}-${_selectedDate.day}";
   }
 
   Future<void> _openDatePicker() async {
