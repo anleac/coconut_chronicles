@@ -10,9 +10,6 @@ class HomePageFab extends StatefulWidget {
 class _HomePageFabState extends State<HomePageFab> {
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () => null,
-      child: const Icon(Icons.add)
-    );
+    return const FloatingActionButton(onPressed: null, child: Icon(Icons.add));
   }
 }

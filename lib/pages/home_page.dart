@@ -1,4 +1,4 @@
-import 'package:coconut_chronicles/widgets/chronicle_entry.dart';
+import 'package:coconut_chronicles/widgets/chronicle_entry_form.dart';
 import 'package:coconut_chronicles/widgets/home_page_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -21,8 +21,8 @@ class HomePageState extends State<HomePage> {
         // floatingActionButton: const HomePageFab(),
         drawer: const HomePageDrawer(),
         body: const Padding(
-          padding: EdgeInsets.only(bottom: innerPadding, left: innerPadding, right: innerPadding),
-          child: ChronicleEntry(),
+          padding: EdgeInsets.symmetric(horizontal: innerPadding),
+          child: ChronicleEntryForm(),
         ));
   }
 
