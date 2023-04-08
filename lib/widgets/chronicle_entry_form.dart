@@ -43,6 +43,7 @@ class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
     return Form(
       key: _formKey,
       child: ListView(children: [
+        const SizedBox(height: 4),
         TitleTextField(onTitleChange: (title) => widget.entry.updateProperties(title: title)),
         const SizedBox(height: 8),
         DateSelector(

@@ -15,6 +15,7 @@ class _TitleTextFieldState extends State<TitleTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: true,
       decoration: const InputDecoration(
         border: OutlineInputBorder(),
         labelText: 'Captivating title',

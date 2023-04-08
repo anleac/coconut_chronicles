@@ -17,7 +17,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Coconut Chronicles'),
+          title: const Text('New entry'),
         ),
         // floatingActionButton: const HomePageFab(),
         drawer: const HomePageDrawer(),

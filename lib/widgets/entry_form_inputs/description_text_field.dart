@@ -21,7 +21,7 @@ class _DescriptionTextFieldState extends State<DescriptionTextField> {
       ),
       maxLines: null,
       controller: _bodyController,
-      minLines: 12,
+      minLines: 10,
       onChanged: (value) => widget.onDescriptionChange(value),
       textAlignVertical: TextAlignVertical.top,
       keyboardType: TextInputType.multiline,
