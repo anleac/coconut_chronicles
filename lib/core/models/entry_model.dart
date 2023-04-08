@@ -13,7 +13,7 @@ class EntryModel {
   DateTime date;
   late List<String> categories;
 
-  String get fileSaveName => date.toIso8601String();
+  String get fileSaveName => date.millisecondsSinceEpoch.toString();
 
   EntryModel({
     this.title,
@@ -61,8 +61,8 @@ class EntryModel {
     return jsonEncode({
       'title': title,
       'description': description,
-      'date': date.toIso8601String(),
       'country': country,
+      'date': fileSaveName,
       'categories': categories,
     });
   }
@@ -72,9 +72,9 @@ class EntryModel {
     return EntryModel(
       title: decodedJson['title'],
       description: decodedJson['description'],
-      date: DateTime.parse(decodedJson['date']),
       country: decodedJson['country'],
-      categories: decodedJson['categories'],
+      date: DateTime.fromMillisecondsSinceEpoch(int.parse(decodedJson['date'])),
+      categories: List<String>.from(decodedJson['categories']),
     );
   }
 }
