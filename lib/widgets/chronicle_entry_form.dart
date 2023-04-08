@@ -61,9 +61,7 @@ class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
             categories: DefaultConstants.defaultChipSuggestions,
             onSelected: (category) => widget.entry.addCategory(category),
             onDeselected: (category) => widget.entry.removeCategory(category)),
-        const SizedBox(height: 8),
-        const Divider(),
-        const SizedBox(height: 8),
+        const Divider(height: 32),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
