@@ -5,22 +5,22 @@ import 'package:coconut_chronicles/core/helpers/format_helper.dart';
 class EntryModel {
   String get safeTitle => title ?? "Untitled";
   String get safeDescription => description ?? "No description";
-  String get safeDate => date != null ? FormatHelper.formatDate(date!) : "No date";
+  String get safeDate => FormatHelper.formatDate(date);
 
   String? title;
   String? description;
-  DateTime? date;
   String? country;
-  List<String>? categories;
+  DateTime date;
+  List<String> categories;
 
-  String get fileSaveName => (date ?? DateTime.now()).toIso8601String();
+  String get fileSaveName => date.toIso8601String();
 
   EntryModel({
     this.title,
     this.description,
-    this.date,
     this.country,
-    this.categories,
+    this.categories = const [],
+    required this.date,
   });
 
   void updateProperties({
@@ -37,19 +37,29 @@ class EntryModel {
     this.categories = categories ?? this.categories;
   }
 
+  void addCategory(String category) {
+    if (!categories.contains(category)) {
+      categories.add(category);
+    }
+  }
+
+  void removeCategory(String category) {
+    categories.remove(category);
+  }
+
   void clearAllProperties() {
     title = null;
     description = null;
-    date = null;
     country = null;
-    categories = null;
+    date = DateTime.now();
+    categories.clear();
   }
 
   toJson() {
     return jsonEncode({
       'title': title,
       'description': description,
-      'date': date?.toIso8601String(),
+      'date': date.toIso8601String(),
       'country': country,
       'categories': categories,
     });

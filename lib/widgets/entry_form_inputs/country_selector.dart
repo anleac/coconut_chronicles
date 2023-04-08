@@ -7,7 +7,7 @@ class CountrySelector extends StatefulWidget {
 
   const CountrySelector({
     Key? key,
-    required this.initialCountry,
+    this.initialCountry = 'No country selected',
     required this.onCountryChanged,
   }) : super(key: key);
 

@@ -1,4 +1,4 @@
-import 'package:coconut_chronicles/core/models/entry.dart';
+import 'package:coconut_chronicles/core/models/entry_model.dart';
 import 'package:coconut_chronicles/core/storage/entry_storage.dart';
 import 'package:flutter/material.dart';
 

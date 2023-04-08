@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:coconut_chronicles/constants/storage_constants.dart';
 import 'package:coconut_chronicles/core/helpers/permission_helper.dart';
 import 'package:coconut_chronicles/core/helpers/platform_helper.dart';
-import 'package:coconut_chronicles/core/models/entry.dart';
+import 'package:coconut_chronicles/core/models/entry_model.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
