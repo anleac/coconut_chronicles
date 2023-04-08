@@ -16,7 +16,7 @@ class _ChronicleEntryListState extends State<ChronicleEntryList> {
     return Column(children: [
       const Text("Past entries"),
       SizedBox(
-          height: 300,
+          height: 400,
           child: FutureBuilder(
             future: EntryStorage.loadEntries(),
             builder: (context, snapshot) {

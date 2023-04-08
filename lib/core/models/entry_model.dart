@@ -49,14 +49,6 @@ class EntryModel {
     categories.remove(category);
   }
 
-  void clearAllProperties() {
-    title = null;
-    description = null;
-    country = null;
-    date = DateTime.now();
-    categories.clear();
-  }
-
   toJson() {
     return jsonEncode({
       'title': title,
@@ -77,4 +69,6 @@ class EntryModel {
       categories: List<String>.from(decodedJson['categories']),
     );
   }
+
+  static EntryModel newEntry() => EntryModel(date: DateTime.now());
 }
