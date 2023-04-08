@@ -1,3 +1,4 @@
+import 'package:coconut_chronicles/widgets/entry_form_inputs/indented_category_text.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -22,10 +23,7 @@ class _CountrySelectorState extends State<CountrySelector> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const SizedBox(
-          width: 8,
-        ),
-        const Text("Country: "),
+        const IndentedCategoryText(text: 'Country: '),
         TextButton(
           onPressed: () => _openCountryPicker(),
           child: Text(_selectedCountry),

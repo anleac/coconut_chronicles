@@ -11,6 +11,9 @@ class EntryStorage {
   static Future saveEntry(EntryModel entry) async {
     var file = await StorageHelper.getEntryFile(entry);
     await file.writeAsString(entry.toJson());
+
+    // TODO: We have no way of handling duplicates yet
+    _entries[entry.fileSaveName] = entry;
   }
 
   static Future<List<EntryModel>> loadEntries() async {
