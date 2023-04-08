@@ -1,5 +1,5 @@
 import 'package:coconut_chronicles/constants/default_constants.dart';
-import 'package:coconut_chronicles/core/models/entry.dart';
+import 'package:coconut_chronicles/core/models/entry_model.dart';
 import 'package:coconut_chronicles/core/storage/entry_storage.dart';
 import 'package:coconut_chronicles/widgets/entry_form_inputs/chip_categories.dart';
 import 'package:coconut_chronicles/widgets/entry_form_inputs/country_selector.dart';
@@ -17,10 +17,10 @@ class ChronicleEntryForm extends StatefulWidget {
 }
 
 class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
-  static const String _defaultCountry = 'No country selected';
   static final DateTime _defaultDate = DateTime.now();
+
   final _formKey = GlobalKey<FormState>();
-  final EntryModel _entry = EntryModel();
+  final EntryModel _entry = EntryModel(date: _defaultDate);
 
   _saveEntry() async {
     var snackContext = ScaffoldMessenger.of(context);
@@ -51,9 +51,7 @@ class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
           lastDate: _defaultDate.add(const Duration(days: 31)),
           onDateChanged: (DateTime date) => _entry.updateProperties(date: date),
         ),
-        CountrySelector(
-            initialCountry: _defaultCountry,
-            onCountryChanged: (String country) => _entry.updateProperties(country: country)),
+        CountrySelector(onCountryChanged: (String country) => _entry.updateProperties(country: country)),
         const SizedBox(height: 8),
         DescriptionTextField(onDescriptionChange: (description) => _entry.updateProperties(description: description)),
         const SizedBox(height: 8),
@@ -64,7 +62,10 @@ class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
           Text('Categories'),
         ]),
         const SizedBox(height: 8),
-        const ChipCategories(categories: DefaultConstants.defaultChipSuggestions),
+        ChipCategories(
+            categories: DefaultConstants.defaultChipSuggestions,
+            onSelected: (category) => _entry.addCategory(category),
+            onDeselected: (category) => _entry.removeCategory(category)),
         const SizedBox(height: 8),
         const Divider(),
         const SizedBox(height: 8),
