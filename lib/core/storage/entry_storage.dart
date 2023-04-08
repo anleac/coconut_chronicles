@@ -4,7 +4,7 @@ import 'package:coconut_chronicles/core/helpers/storage_helper.dart';
 import 'package:coconut_chronicles/core/models/entry.dart';
 
 class EntryStorage {
-  static Map<String, EntryModel> _entries = {};
+  static final Map<String, EntryModel> _entries = {};
 
   static Future saveEntry(EntryModel entry) async {
     var storageDirectory = await StorageHelper.getStorageDirectory();
