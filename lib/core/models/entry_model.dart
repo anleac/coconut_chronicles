@@ -11,7 +11,7 @@ class EntryModel {
   String? description;
   String? country;
   DateTime date;
-  List<String> categories;
+  late List<String> categories;
 
   String get fileSaveName => date.toIso8601String();
 
@@ -19,9 +19,11 @@ class EntryModel {
     this.title,
     this.description,
     this.country,
-    this.categories = const [],
+    List<String>? categories,
     required this.date,
-  });
+  }) {
+    this.categories = categories ?? [];
+  }
 
   void updateProperties({
     String? title,
