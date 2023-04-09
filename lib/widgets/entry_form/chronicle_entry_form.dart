@@ -1,13 +1,13 @@
 import 'package:coconut_chronicles/constants/default_constants.dart';
 import 'package:coconut_chronicles/core/models/entry_model.dart';
 import 'package:coconut_chronicles/core/storage/entry_storage.dart';
-import 'package:coconut_chronicles/widgets/entry_form_inputs/chip_categories.dart';
-import 'package:coconut_chronicles/widgets/entry_form_inputs/country_selector.dart';
-import 'package:coconut_chronicles/widgets/entry_form_inputs/date_selector.dart';
+import 'package:coconut_chronicles/widgets/entry_form/inputs/chip_categories.dart';
+import 'package:coconut_chronicles/widgets/entry_form/inputs/country_selector.dart';
+import 'package:coconut_chronicles/widgets/entry_form/inputs/date_selector.dart';
 import 'package:coconut_chronicles/widgets/dialogues/dialogue_builder.dart';
-import 'package:coconut_chronicles/widgets/entry_form_inputs/description_text_field.dart';
-import 'package:coconut_chronicles/widgets/entry_form_inputs/indented_category_text.dart';
-import 'package:coconut_chronicles/widgets/entry_form_inputs/title_text_field.dart';
+import 'package:coconut_chronicles/widgets/entry_form/inputs/description_text_field.dart';
+import 'package:coconut_chronicles/widgets/entry_form/inputs/indented_category_text.dart';
+import 'package:coconut_chronicles/widgets/entry_form/inputs/title_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -20,24 +20,6 @@ class ChronicleEntryForm extends StatefulWidget {
 
 class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
   final _formKey = GlobalKey<FormState>();
-
-  _saveEntry() async {
-    var snackContext = ScaffoldMessenger.of(context);
-    await EntryStorage.saveEntry(ScopedModel.of<EntryModel>(context));
-    _clearData();
-    snackContext.showSnackBar(
-      const SnackBar(content: Text('Saved chronicle entry')),
-    );
-  }
-
-  _clearData() {
-    setState(() {
-      var entry = ScopedModel.of<EntryModel>(context);
-      if (entry.isNewEntry) {
-        entry.clearProperties();
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,5 +60,23 @@ class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
         ),
       ]),
     );
+  }
+
+  _saveEntry() async {
+    var snackContext = ScaffoldMessenger.of(context);
+    await EntryStorage.saveEntry(ScopedModel.of<EntryModel>(context));
+    _clearData();
+    snackContext.showSnackBar(
+      const SnackBar(content: Text('Saved chronicle entry')),
+    );
+  }
+
+  _clearData() {
+    setState(() {
+      var entry = ScopedModel.of<EntryModel>(context);
+      if (entry.isNewEntry) {
+        entry.clearProperties();
+      }
+    });
   }
 }

@@ -1,5 +1,5 @@
 import 'package:coconut_chronicles/core/models/entry_model.dart';
-import 'package:coconut_chronicles/widgets/chronicle_entry_form.dart';
+import 'package:coconut_chronicles/widgets/entry_form/chronicle_entry_form.dart';
 import 'package:coconut_chronicles/widgets/home_page_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
