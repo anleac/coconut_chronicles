@@ -12,9 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class ChronicleEntryForm extends StatefulWidget {
-  final EntryModel entry;
-
-  const ChronicleEntryForm({Key? key, required this.entry}) : super(key: key);
+  const ChronicleEntryForm({Key? key}) : super(key: key);
 
   @override
   State<ChronicleEntryForm> createState() => _ChronicleEntryFormState();
@@ -25,7 +23,7 @@ class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
 
   _saveEntry() async {
     var snackContext = ScaffoldMessenger.of(context);
-    await EntryStorage.saveEntry(widget.entry);
+    await EntryStorage.saveEntry(ScopedModel.of<EntryModel>(context));
     _clearData();
     snackContext.showSnackBar(
       const SnackBar(content: Text('Saved chronicle entry')),
@@ -34,56 +32,51 @@ class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
 
   _clearData() {
     setState(() {
-      _formKey.currentState?.reset();
+      var entry = ScopedModel.of<EntryModel>(context);
+      if (entry.isNewEntry) {
+        entry.clearProperties();
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModel<EntryModel>(
-        model: widget.entry,
-        child: Form(
-          key: _formKey,
-          child: ListView(children: [
-            const SizedBox(height: 4),
-            const TitleTextField(),
-            const SizedBox(height: 8),
-            DateSelector(
-              initialDate: widget.entry.date,
-              onDateChanged: (DateTime date) => widget.entry.updateProperties(date: date),
+    return Form(
+      key: _formKey,
+      child: ListView(children: [
+        const SizedBox(height: 4),
+        const TitleTextField(),
+        const SizedBox(height: 8),
+        const DateSelector(),
+        const CountrySelector(),
+        const SizedBox(height: 8),
+        const DescriptionTextField(),
+        const SizedBox(height: 8),
+        const IndentedCategoryText(text: 'Categories'),
+        const SizedBox(height: 8),
+        const ChipCategories(categories: DefaultConstants.defaultChipSuggestions),
+        const Divider(height: 32),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TextButton(
+              onPressed: () => DialogueBuilder.showConfirmToClearDialogue(context, onConfirm: _clearData),
+              child: const Text('Clear'),
             ),
-            CountrySelector(onCountryChanged: (String country) => widget.entry.updateProperties(country: country)),
-            const SizedBox(height: 8),
-            const DescriptionTextField(),
-            const SizedBox(height: 8),
-            const IndentedCategoryText(text: 'Categories'),
-            const SizedBox(height: 8),
-            ChipCategories(
-                categories: DefaultConstants.defaultChipSuggestions,
-                onSelected: (category) => widget.entry.addCategory(category),
-                onDeselected: (category) => widget.entry.removeCategory(category)),
-            const Divider(height: 32),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () => DialogueBuilder.showConfirmToClearDialogue(context, onConfirm: _clearData),
-                  child: const Text('Clear'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _saveEntry();
-                    }
-                  },
-                  child: const Text('Save'),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-              ],
+            TextButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  _saveEntry();
+                }
+              },
+              child: const Text('Save'),
             ),
-          ]),
-        ));
+            const SizedBox(
+              width: 8,
+            ),
+          ],
+        ),
+      ]),
+    );
   }
 }

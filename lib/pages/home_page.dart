@@ -2,6 +2,7 @@ import 'package:coconut_chronicles/core/models/entry_model.dart';
 import 'package:coconut_chronicles/widgets/chronicle_entry_form.dart';
 import 'package:coconut_chronicles/widgets/home_page_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   static const double horizontalPadding = 32;
+  static final EntryModel _newEntry = EntryModel.newEntry();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,10 @@ class HomePageState extends State<HomePage> {
         drawer: const HomePageDrawer(),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: horizontalPadding),
-          child: ChronicleEntryForm(entry: EntryModel.newEntry()),
+          child: ScopedModel<EntryModel>(
+            model: _newEntry,
+            child: const ChronicleEntryForm(),
+          ),
         ));
   }
 

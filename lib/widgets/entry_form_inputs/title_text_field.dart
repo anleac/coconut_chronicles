@@ -15,6 +15,7 @@ class TitleTextField extends StatelessWidget {
                 border: OutlineInputBorder(),
                 labelText: 'Captivating title',
               ),
+              initialValue: model.title,
               onChanged: (value) => model.updateProperties(title: value),
               validator: (value) => ValidatorHelper.emptyTextValidator(value),
             ));

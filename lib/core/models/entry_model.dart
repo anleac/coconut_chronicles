@@ -10,6 +10,7 @@ class EntryModel extends Model {
 
   String get safeTitle => title ?? "Untitled";
   String get safeDescription => description ?? "No description";
+  String get safeCountry => country ?? "No country selected";
   String get safeDate => FormatHelper.formatDate(date);
   bool get isNewEntry => _isNewEntry;
 
@@ -44,6 +45,18 @@ class EntryModel extends Model {
     this.date = date ?? this.date;
     this.country = country ?? this.country;
     this.categories = categories ?? this.categories;
+
+    notifyListeners();
+  }
+
+  void clearProperties() {
+    title = null;
+    description = null;
+    date = DateTime.now();
+    country = null;
+    categories = [];
+
+    notifyListeners();
   }
 
   void addCategory(String category) {
