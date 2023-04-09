@@ -1,28 +1,22 @@
 import 'package:coconut_chronicles/core/helpers/validator_helper.dart';
+import 'package:coconut_chronicles/core/models/entry_model.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-class TitleTextField extends StatefulWidget {
-  final ValueChanged<String> onTitleChange;
-  const TitleTextField({Key? key, required this.onTitleChange}) : super(key: key);
-
-  @override
-  State<TitleTextField> createState() => _TitleTextFieldState();
-}
-
-class _TitleTextFieldState extends State<TitleTextField> {
-  final TextEditingController _titleController = TextEditingController();
+class TitleTextField extends StatelessWidget {
+  const TitleTextField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      autofocus: true,
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: 'Captivating title',
-      ),
-      controller: _titleController,
-      onChanged: (value) => widget.onTitleChange(value),
-      validator: (value) => ValidatorHelper.emptyTextValidator(value),
-    );
+    return ScopedModelDescendant<EntryModel>(
+        builder: (context, child, model) => TextFormField(
+              autofocus: true,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Captivating title',
+              ),
+              onChanged: (value) => model.updateProperties(title: value),
+              validator: (value) => ValidatorHelper.emptyTextValidator(value),
+            ));
   }
 }

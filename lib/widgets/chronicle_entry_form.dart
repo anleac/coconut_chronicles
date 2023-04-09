@@ -9,12 +9,12 @@ import 'package:coconut_chronicles/widgets/entry_form_inputs/description_text_fi
 import 'package:coconut_chronicles/widgets/entry_form_inputs/indented_category_text.dart';
 import 'package:coconut_chronicles/widgets/entry_form_inputs/title_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class ChronicleEntryForm extends StatefulWidget {
   final EntryModel entry;
-  final bool newEntry;
 
-  const ChronicleEntryForm({Key? key, required this.entry, required this.newEntry}) : super(key: key);
+  const ChronicleEntryForm({Key? key, required this.entry}) : super(key: key);
 
   @override
   State<ChronicleEntryForm> createState() => _ChronicleEntryFormState();
@@ -40,49 +40,50 @@ class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: ListView(children: [
-        const SizedBox(height: 4),
-        TitleTextField(onTitleChange: (title) => widget.entry.updateProperties(title: title)),
-        const SizedBox(height: 8),
-        DateSelector(
-          initialDate: widget.entry.date,
-          onDateChanged: (DateTime date) => widget.entry.updateProperties(date: date),
-        ),
-        CountrySelector(onCountryChanged: (String country) => widget.entry.updateProperties(country: country)),
-        const SizedBox(height: 8),
-        DescriptionTextField(
-            onDescriptionChange: (description) => widget.entry.updateProperties(description: description)),
-        const SizedBox(height: 8),
-        const IndentedCategoryText(text: 'Categories'),
-        const SizedBox(height: 8),
-        ChipCategories(
-            categories: DefaultConstants.defaultChipSuggestions,
-            onSelected: (category) => widget.entry.addCategory(category),
-            onDeselected: (category) => widget.entry.removeCategory(category)),
-        const Divider(height: 32),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TextButton(
-              onPressed: () => DialogueBuilder.showConfirmToClearDialogue(context, onConfirm: _clearData),
-              child: const Text('Clear'),
+    return ScopedModel<EntryModel>(
+        model: widget.entry,
+        child: Form(
+          key: _formKey,
+          child: ListView(children: [
+            const SizedBox(height: 4),
+            const TitleTextField(),
+            const SizedBox(height: 8),
+            DateSelector(
+              initialDate: widget.entry.date,
+              onDateChanged: (DateTime date) => widget.entry.updateProperties(date: date),
             ),
-            TextButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  _saveEntry();
-                }
-              },
-              child: const Text('Save'),
+            CountrySelector(onCountryChanged: (String country) => widget.entry.updateProperties(country: country)),
+            const SizedBox(height: 8),
+            const DescriptionTextField(),
+            const SizedBox(height: 8),
+            const IndentedCategoryText(text: 'Categories'),
+            const SizedBox(height: 8),
+            ChipCategories(
+                categories: DefaultConstants.defaultChipSuggestions,
+                onSelected: (category) => widget.entry.addCategory(category),
+                onDeselected: (category) => widget.entry.removeCategory(category)),
+            const Divider(height: 32),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () => DialogueBuilder.showConfirmToClearDialogue(context, onConfirm: _clearData),
+                  child: const Text('Clear'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _saveEntry();
+                    }
+                  },
+                  child: const Text('Save'),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+              ],
             ),
-            const SizedBox(
-              width: 8,
-            ),
-          ],
-        ),
-      ]),
-    );
+          ]),
+        ));
   }
 }

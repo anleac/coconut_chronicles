@@ -23,10 +23,7 @@ class HomePageState extends State<HomePage> {
         drawer: const HomePageDrawer(),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: horizontalPadding),
-          child: ChronicleEntryForm(
-            entry: EntryModel.newEntry(),
-            newEntry: true,
-          ),
+          child: ChronicleEntryForm(entry: EntryModel.newEntry()),
         ));
   }
 

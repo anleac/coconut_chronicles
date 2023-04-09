@@ -1,17 +1,24 @@
 import 'dart:convert';
 
 import 'package:coconut_chronicles/core/helpers/format_helper.dart';
+import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-class EntryModel {
+class EntryModel extends Model {
+  static EntryModel of(BuildContext context) => ScopedModel.of<EntryModel>(context);
+  static EntryModel newEntry() => EntryModel(date: DateTime.now());
+
   String get safeTitle => title ?? "Untitled";
   String get safeDescription => description ?? "No description";
   String get safeDate => FormatHelper.formatDate(date);
+  bool get isNewEntry => _isNewEntry;
 
   String? title;
   String? description;
   String? country;
   DateTime date;
   late List<String> categories;
+  late final bool _isNewEntry = title == null;
 
   String get fileSaveName => date.millisecondsSinceEpoch.toString();
 
@@ -69,6 +76,4 @@ class EntryModel {
       categories: List<String>.from(decodedJson['categories']),
     );
   }
-
-  static EntryModel newEntry() => EntryModel(date: DateTime.now());
 }
