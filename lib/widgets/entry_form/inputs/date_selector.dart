@@ -40,7 +40,9 @@ class _DateSelectorState extends State<DateSelector> {
     );
 
     if (picked != null && picked != entry.date) {
-      entry.updateProperties(date: picked);
+      setState(() {
+        entry.updateProperties(date: picked);
+      });
     }
   }
 }

@@ -72,11 +72,11 @@ class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
   }
 
   _clearData() {
-    setState(() {
-      var entry = ScopedModel.of<EntryModel>(context);
-      if (entry.isNewEntry) {
-        entry.clearProperties();
-      }
-    });
+    var entry = ScopedModel.of<EntryModel>(context);
+    if (entry.isNewEntry) {
+      entry.clearProperties();
+    }
+
+    _formKey.currentState?.reset();
   }
 }

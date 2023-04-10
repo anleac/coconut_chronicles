@@ -19,7 +19,7 @@ class EntryModel extends Model {
   String? country;
   DateTime date;
   late List<String> categories;
-  late final bool _isNewEntry = title == null;
+  late final bool _isNewEntry;
 
   String get fileSaveName => date.millisecondsSinceEpoch.toString();
 
@@ -31,6 +31,7 @@ class EntryModel extends Model {
     required this.date,
   }) {
     this.categories = categories ?? [];
+    _isNewEntry = title == null;
   }
 
   void updateProperties({
@@ -39,6 +40,7 @@ class EntryModel extends Model {
     DateTime? date,
     String? country,
     List<String>? categories,
+    bool rebuildListeners = false,
   }) {
     this.title = title ?? this.title;
     this.description = description ?? this.description;
@@ -46,7 +48,9 @@ class EntryModel extends Model {
     this.country = country ?? this.country;
     this.categories = categories ?? this.categories;
 
-    notifyListeners();
+    if (rebuildListeners) {
+      notifyListeners();
+    }
   }
 
   void clearProperties() {
