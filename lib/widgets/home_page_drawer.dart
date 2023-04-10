@@ -1,6 +1,6 @@
 import 'package:coconut_chronicles/core/storage/preferences_model.dart';
 import 'package:coconut_chronicles/widgets/chronicle_entry_list.dart';
-import 'package:coconut_chronicles/widgets/version_text.dart';
+import 'package:coconut_chronicles/widgets/drawer/version_text.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
