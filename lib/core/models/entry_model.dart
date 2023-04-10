@@ -73,6 +73,10 @@ class EntryModel extends Model {
     categories.remove(category);
   }
 
+  void forceRefresh() {
+    notifyListeners();
+  }
+
   toJson() {
     return jsonEncode({
       'title': title,

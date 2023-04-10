@@ -4,7 +4,8 @@ import 'package:coconut_chronicles/widgets/entry_list_tile.dart';
 import 'package:flutter/material.dart';
 
 class ChronicleEntryList extends StatefulWidget {
-  const ChronicleEntryList({Key? key}) : super(key: key);
+  final Function(EntryModel) onEntrySelect;
+  const ChronicleEntryList({Key? key, required this.onEntrySelect}) : super(key: key);
 
   @override
   State<ChronicleEntryList> createState() => _ChronicleEntryListState();
@@ -31,7 +32,7 @@ class _ChronicleEntryListState extends State<ChronicleEntryList> {
                   itemCount: entries.length,
                   itemBuilder: (context, index) {
                     var entry = entries[index];
-                    return EntryListTitle(entry: entry, onTap: () => null);
+                    return EntryListTitle(entry: entry, onTap: () => widget.onEntrySelect(entry));
                   },
                 );
               }

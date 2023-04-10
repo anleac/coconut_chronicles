@@ -15,6 +15,8 @@ class HomePageState extends State<HomePage> {
   static const double horizontalPadding = 32;
   static final EntryModel _newEntry = EntryModel.newEntry();
 
+  EntryModel _activeEntry = _newEntry;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,14 +24,24 @@ class HomePageState extends State<HomePage> {
           title: const Text('New entry'),
         ),
         // floatingActionButton: const HomePageFab(),
-        drawer: const HomePageDrawer(),
+        drawer: HomePageDrawer(
+          onEntrySelect: _onEntrySelect,
+        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: horizontalPadding),
           child: ScopedModel<EntryModel>(
-            model: _newEntry,
+            model: _activeEntry,
             child: const ChronicleEntryForm(),
           ),
         ));
+  }
+
+  _onEntrySelect(EntryModel entry) {
+    setState(() {
+      _activeEntry = entry;
+    });
+
+    _activeEntry.forceRefresh();
   }
 
   @override
