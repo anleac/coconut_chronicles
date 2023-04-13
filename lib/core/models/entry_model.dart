@@ -1,35 +1,47 @@
 import 'dart:convert';
 
 import 'package:coconut_chronicles/core/helpers/format_helper.dart';
+import 'package:coconut_chronicles/core/helpers/io_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class EntryModel extends Model {
   static EntryModel of(BuildContext context) => ScopedModel.of<EntryModel>(context);
-  static EntryModel newEntry() => EntryModel(date: DateTime.now());
+  static EntryModel newEntry() => EntryModel(createdAt: DateTime.now());
 
   String get safeTitle => title ?? "Untitled";
   String get safeDescription => description ?? "No description";
   String get safeCountry => country ?? "No country selected";
-  String get safeDate => FormatHelper.formatDate(date);
+
+  String get safeDate => date != null ? FormatHelper.formatDate(date!) : "No date yet";
+  String get safeEndDate => endDate != null ? FormatHelper.formatDate(endDate!) : "No date yet";
+
   bool get isNewEntry => _isNewEntry;
 
   String? title;
   String? description;
   String? country;
-  DateTime date;
+
+  DateTime createdAt;
+
+  DateTime? date;
+  // This allows support for a "date range" for a journal
+  DateTime? endDate;
+
   late List<String> categories;
   late final bool _isNewEntry;
 
-  String get fileSaveName => date.millisecondsSinceEpoch.toString();
+  // This should almost -always- be unique
+  int get fileSaveName => createdAt.millisecondsSinceEpoch;
 
-  EntryModel({
-    this.title,
-    this.description,
-    this.country,
-    List<String>? categories,
-    required this.date,
-  }) {
+  EntryModel(
+      {this.title,
+      this.description,
+      this.country,
+      List<String>? categories,
+      required this.createdAt,
+      this.date,
+      this.endDate}) {
     this.categories = categories ?? [];
     _isNewEntry = title == null;
   }
@@ -38,6 +50,7 @@ class EntryModel extends Model {
     String? title,
     String? description,
     DateTime? date,
+    DateTime? endDate,
     String? country,
     List<String>? categories,
     bool rebuildListeners = false,
@@ -45,6 +58,7 @@ class EntryModel extends Model {
     this.title = title ?? this.title;
     this.description = description ?? this.description;
     this.date = date ?? this.date;
+    this.endDate = endDate ?? this.endDate;
     this.country = country ?? this.country;
     this.categories = categories ?? this.categories;
 
@@ -56,7 +70,9 @@ class EntryModel extends Model {
   void clearProperties() {
     title = null;
     description = null;
-    date = DateTime.now();
+    createdAt = DateTime.now();
+    date = null;
+    endDate = null;
     country = null;
     categories = [];
 
@@ -78,7 +94,9 @@ class EntryModel extends Model {
       'title': title,
       'description': description,
       'country': country,
-      'date': fileSaveName,
+      'createdAt': IoHelper.saveDateToFile(createdAt),
+      'date': IoHelper.saveDateToFile(date!),
+      'endDate': endDate != null ? IoHelper.saveDateToFile(endDate!) : null,
       'categories': categories,
     });
   }
@@ -89,7 +107,9 @@ class EntryModel extends Model {
       title: decodedJson['title'],
       description: decodedJson['description'],
       country: decodedJson['country'],
-      date: DateTime.fromMillisecondsSinceEpoch(int.parse(decodedJson['date'])),
+      createdAt: IoHelper.readDateFromSave(decodedJson['createdAt']),
+      date: IoHelper.readDateFromSave(decodedJson['createdAt']),
+      endDate: IoHelper.readDateFromSave(decodedJson['createdAt']),
       categories: List<String>.from(decodedJson['categories']),
     );
   }

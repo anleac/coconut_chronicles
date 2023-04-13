@@ -6,14 +6,20 @@ import 'package:coconut_chronicles/core/models/entry_model.dart';
 import 'package:path/path.dart';
 
 class EntryStorage {
-  static final Map<String, EntryModel> _entries = {};
+  static final Map<int, EntryModel> _entries = {};
 
-  static Future saveEntry(EntryModel entry) async {
+  static Future<bool> saveEntry(EntryModel entry) async {
     var file = await StorageHelper.getEntryFile(entry);
-    await file.writeAsString(entry.toJson());
+    var fileContentsToWrite = entry.toJson();
+    try {
+      await file.writeAsString(fileContentsToWrite);
 
-    // TODO: We have no way of handling duplicates yet
-    _entries[entry.fileSaveName] = entry;
+      // TODO: We have no way of handling duplicates yet
+      _entries[entry.fileSaveName] = entry;
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   static Future<List<EntryModel>> loadEntries() async {
@@ -29,9 +35,12 @@ class EntryStorage {
       if (fileExtension != StorageConstants.entrySaveExtension) {
         continue;
       }
-
-      var entry = EntryModel.fromJson(await File(file.path).readAsString());
-      _entries[entry.fileSaveName] = entry;
+      var fileContents = await File(file.path).readAsString();
+      try {
+        var entry = EntryModel.fromJson(fileContents);
+        _entries[entry.fileSaveName] = entry;
+        // ignore: empty_catches TODO: Decide what to do where
+      } catch (e) {}
     }
 
     return _entries.values.toList();

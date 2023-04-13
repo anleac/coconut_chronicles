@@ -5,4 +5,11 @@ class ValidatorHelper {
     }
     return null;
   }
+
+  static String? emptyDateValidator(DateTime? value) {
+    if (value == null) {
+      return 'Please enter a date';
+    }
+    return null;
+  }
 }
