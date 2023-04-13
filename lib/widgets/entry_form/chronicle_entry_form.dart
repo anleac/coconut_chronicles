@@ -64,11 +64,17 @@ class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
 
   _saveEntry() async {
     var snackContext = ScaffoldMessenger.of(context);
-    await EntryStorage.saveEntry(ScopedModel.of<EntryModel>(context));
-    _clearData();
-    snackContext.showSnackBar(
-      const SnackBar(content: Text('Saved chronicle entry')),
-    );
+    bool success = await EntryStorage.saveEntry(ScopedModel.of<EntryModel>(context));
+    if (success) {
+      _clearData();
+      snackContext.showSnackBar(
+        const SnackBar(content: Text('Saved chronicle entry')),
+      );
+    } else {
+      snackContext.showSnackBar(
+        const SnackBar(content: Text('Error saving chronicle entry')),
+      );
+    }
   }
 
   _clearData() {
