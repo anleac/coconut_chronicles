@@ -39,7 +39,7 @@ class _DateSelectorState extends State<DateSelector> {
               errorText: state.errorText!,
             ),
         ]),
-        validator: (value) => ValidatorHelper.emptyDateValidator(value),
+        validator: (_) => ValidatorHelper.emptyDateValidator(model.date),
       ),
     );
   }
