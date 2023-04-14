@@ -1,5 +1,7 @@
+import 'package:coconut_chronicles/core/helpers/validator_helper.dart';
 import 'package:coconut_chronicles/core/models/entry_model.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/indented_category_text.dart';
+import 'package:coconut_chronicles/widgets/entry_form/inputs/validation_error_text.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -14,16 +16,25 @@ class CountrySelector extends StatefulWidget {
 class _CountrySelectorState extends State<CountrySelector> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const IndentedCategoryText(text: 'Country: '),
-        ScopedModelDescendant<EntryModel>(
-          builder: (context, child, model) => TextButton(
-            onPressed: () => _openCountryPicker(),
-            child: Text(model.safeCountry),
+    return ScopedModelDescendant<EntryModel>(
+      builder: (context, child, model) => FormField<String>(
+        builder: (state) => Column(children: [
+          Row(
+            children: [
+              const IndentedCategoryText(text: 'Country: '),
+              TextButton(
+                onPressed: () => _openCountryPicker(),
+                child: Text(model.safeCountry),
+              ),
+            ],
           ),
-        )
-      ],
+          if (state.hasError)
+            ValidationErrorText(
+              errorText: state.errorText!,
+            ),
+        ]),
+        validator: (_) => ValidatorHelper.emptyCountryValidator(model.country),
+      ),
     );
   }
 
