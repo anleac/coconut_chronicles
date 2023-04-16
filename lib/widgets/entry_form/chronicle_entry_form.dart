@@ -4,7 +4,7 @@ import 'package:coconut_chronicles/core/storage/entry_storage.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/chip_categories.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/country_selector.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/date_selector.dart';
-import 'package:coconut_chronicles/widgets/dialogues/dialogue_builder.dart';
+import 'package:coconut_chronicles/widgets/dialogues/confirmation_dialogue_builder.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/description_text_field.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/indented_category_text.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/title_text_field.dart';
@@ -42,7 +42,8 @@ class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             TextButton(
-              onPressed: () => DialogueBuilder.showConfirmToClearDialogue(context, onConfirm: _clearData),
+              onPressed: () =>
+                  ConfirmationDialogueBuilder.showConfirmToClearEntryFormDialogue(context, onConfirm: _clearData),
               child: const Text('Clear'),
             ),
             TextButton(

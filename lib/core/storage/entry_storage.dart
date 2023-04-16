@@ -1,17 +1,22 @@
 import 'dart:io';
 
-import 'package:coconut_chronicles/constants/storage_constants.dart';
 import 'package:coconut_chronicles/core/helpers/storage_helper.dart';
 import 'package:coconut_chronicles/core/models/entry_model.dart';
+import 'package:coconut_chronicles/core/storage/encryption.dart';
 import 'package:path/path.dart';
 
 class EntryStorage {
   static final Map<int, EntryModel> _entries = {};
 
   static Future<bool> saveEntry(EntryModel entry) async {
-    var file = await StorageHelper.getEntryFile(entry);
+    var encryptionEnabled = await Encryption.isEncryptionEnabled();
+    var file = await StorageHelper.getEntryFile(entry, encrypted: encryptionEnabled);
     var fileContentsToWrite = entry.toJson();
     try {
+      if (encryptionEnabled) {
+        fileContentsToWrite = await Encryption.encrypt(fileContentsToWrite);
+      }
+
       await file.writeAsString(fileContentsToWrite);
 
       // TODO: We have no way of handling duplicates yet
@@ -32,11 +37,17 @@ class EntryStorage {
 
     for (var file in files) {
       var fileExtension = extension(file.path);
-      if (fileExtension != StorageConstants.entrySaveExtension) {
+      if (!StorageHelper.allowedFileExtension(fileExtension)) {
         continue;
       }
+
       var fileContents = await File(file.path).readAsString();
       try {
+        var encrypted = StorageHelper.isEncryptedFile(fileExtension);
+        if (encrypted) {
+          fileContents = await Encryption.decrypt(fileContents);
+        }
+
         var entry = EntryModel.fromJson(fileContents);
         _entries[entry.fileSaveName] = entry;
         // ignore: empty_catches TODO: Decide what to do where

@@ -10,12 +10,16 @@ import 'package:path_provider/path_provider.dart';
 class StorageHelper {
   static Directory? _storageDirectory;
 
-  static Future<File> getEntryFile(EntryModel model) async {
-    return File(await getEntrySavePath(model));
+  static bool allowedFileExtension(String ext) => StorageConstants.allowedEntrySaveExtensions.contains(ext);
+  static bool isEncryptedFile(String ext) => ext == StorageConstants.encryptedEntrySaveExtension;
+
+  static Future<File> getEntryFile(EntryModel model, {required bool encrypted}) async {
+    return File(await getEntrySavePath(model, encrypted: encrypted));
   }
 
-  static Future<String> getEntrySavePath(EntryModel model) async {
-    return join((await getStorageDirectory()).path, '${model.fileSaveName}${StorageConstants.entrySaveExtension}');
+  static Future<String> getEntrySavePath(EntryModel model, {required bool encrypted}) async {
+    return join((await getStorageDirectory()).path,
+        '${model.fileSaveName}${encrypted ? StorageConstants.encryptedEntrySaveExtension : StorageConstants.entrySaveExtension}');
   }
 
   static Future<Directory> getStorageDirectory() async {
