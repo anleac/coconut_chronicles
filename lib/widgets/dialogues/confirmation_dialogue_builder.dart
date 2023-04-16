@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 
-class DialogueBuilder {
-  static void showConfirmToClearDialogue(BuildContext context, {required VoidCallback onConfirm}) {
+class ConfirmationDialogueBuilder {
+  static void showConfirmToClearEntryFormDialogue(BuildContext context, {required VoidCallback onConfirm}) {
     showConfirmationDialogue(
       context,
       title: "Clear current entry",
       content: "Are you sure you want to clear all data?",
+      confirmText: "Clear",
+      cancelText: "Cancel",
+      onConfirm: onConfirm,
+    );
+  }
+
+  static void showConfirmToClearEncryptionKeyDialogue(BuildContext context, {required VoidCallback onConfirm}) {
+    showConfirmationDialogue(
+      context,
+      title: "Clear encryption key",
+      content: "Are you sure you want to clear the encryption key?",
       confirmText: "Clear",
       cancelText: "Cancel",
       onConfirm: onConfirm,
