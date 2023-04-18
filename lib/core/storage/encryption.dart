@@ -10,8 +10,8 @@ class Encryption {
 
   static const _encryptedKeyStorage = FlutterSecureStorage();
 
-  // Currently only for Android
-  static bool get supportedPlatform => Platform.isAndroid;
+  // List of platforms that support encryption
+  static bool get supportedPlatform => Platform.isAndroid || Platform.isIOS || Platform.isMacOS || Platform.isWindows;
 
   static Future<bool> isEncryptionEnabled() async {
     if (!supportedPlatform) {
