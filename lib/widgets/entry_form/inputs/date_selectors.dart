@@ -5,14 +5,14 @@ import 'package:coconut_chronicles/widgets/entry_form/inputs/validation_error_te
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-class DateSelector extends StatefulWidget {
-  const DateSelector({Key? key}) : super(key: key);
+class DateSelectors extends StatefulWidget {
+  const DateSelectors({Key? key}) : super(key: key);
 
   @override
-  State<DateSelector> createState() => _DateSelectorState();
+  State<DateSelectors> createState() => _DateSelectorsState();
 }
 
-class _DateSelectorState extends State<DateSelector> {
+class _DateSelectorsState extends State<DateSelectors> {
   // Adhoc values I believe should be sufficient for any journaling.
   static final DateTime _earliestDate = DateTime(2000);
   static final DateTime _latestDate = DateTime.now().add(const Duration(days: 31));
