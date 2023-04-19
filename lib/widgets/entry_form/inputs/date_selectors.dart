@@ -1,5 +1,5 @@
 import 'package:coconut_chronicles/core/helpers/validator_helper.dart';
-import 'package:coconut_chronicles/core/models/entry_model.dart';
+import 'package:coconut_chronicles/core/models/selected_entry_model.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/indented_category_text.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/validation_error_text.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class _DateSelectorsState extends State<DateSelectors> {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<EntryModel>(
+    return ScopedModelDescendant<SelectedEntryModel>(
       builder: (context, child, model) => Column(children: [
         Row(
           children: [
@@ -29,8 +29,8 @@ class _DateSelectorsState extends State<DateSelectors> {
                   Row(children: [
                     const IndentedCategoryText(text: 'Date: '),
                     TextButton(
-                      onPressed: () => _openDatePicker(currentDate: model.date, endDate: false),
-                      child: Text(model.safeDate),
+                      onPressed: () => _openDatePicker(currentDate: model.selectedEntry.date, endDate: false),
+                      child: Text(model.selectedEntry.safeDate),
                     ),
                   ]),
                   if (state.hasError)
@@ -39,7 +39,7 @@ class _DateSelectorsState extends State<DateSelectors> {
                     ),
                 ],
               ),
-              validator: (_) => ValidatorHelper.emptyDateValidator(model.date),
+              validator: (_) => ValidatorHelper.emptyDateValidator(model.selectedEntry.date),
             )
           ],
         ),
@@ -48,15 +48,15 @@ class _DateSelectorsState extends State<DateSelectors> {
             text: 'End Date (Optional): ',
           ),
           TextButton(
-              onPressed: () => _openDatePicker(currentDate: model.endDate, endDate: true),
-              child: Text(model.safeEndDate)),
+              onPressed: () => _openDatePicker(currentDate: model.selectedEntry.endDate, endDate: true),
+              child: Text(model.selectedEntry.safeEndDate)),
         ]),
       ]),
     );
   }
 
   Future<void> _openDatePicker({required DateTime? currentDate, required bool endDate}) async {
-    var entry = ScopedModel.of<EntryModel>(context);
+    var entry = ScopedModel.of<SelectedEntryModel>(context).selectedEntry;
     final DateTime? picked = await showDatePicker(
       context: context,
       helpText: "Date of memory",

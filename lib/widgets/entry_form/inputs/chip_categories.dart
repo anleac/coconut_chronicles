@@ -1,4 +1,4 @@
-import 'package:coconut_chronicles/core/models/entry_model.dart';
+import 'package:coconut_chronicles/core/models/selected_entry_model.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -14,7 +14,7 @@ class ChipCategories extends StatefulWidget {
 class _ChipCategoriesState extends State<ChipCategories> {
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<EntryModel>(
+    return ScopedModelDescendant<SelectedEntryModel>(
         builder: (context, child, model) => Wrap(
               spacing: 8.0,
               runSpacing: 4,
@@ -22,13 +22,13 @@ class _ChipCategoriesState extends State<ChipCategories> {
                   .map((category) => FilterChip(
                         label: Text(category),
                         shape: const StadiumBorder(),
-                        selected: model.categories.contains(category),
+                        selected: model.selectedEntry.categories.contains(category),
                         onSelected: (bool value) {
                           setState(() {
                             if (value) {
-                              model.addCategory(category);
+                              model.selectedEntry.addCategory(category);
                             } else {
-                              model.removeCategory(category);
+                              model.selectedEntry.removeCategory(category);
                             }
                           });
                         },

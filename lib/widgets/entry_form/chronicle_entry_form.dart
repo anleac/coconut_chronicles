@@ -1,5 +1,5 @@
 import 'package:coconut_chronicles/constants/default_constants.dart';
-import 'package:coconut_chronicles/core/models/entry_model.dart';
+import 'package:coconut_chronicles/core/models/selected_entry_model.dart';
 import 'package:coconut_chronicles/core/storage/entry_storage.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/chip_categories.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/country_selector.dart';
@@ -9,7 +9,6 @@ import 'package:coconut_chronicles/widgets/entry_form/inputs/description_text_fi
 import 'package:coconut_chronicles/widgets/entry_form/inputs/indented_category_text.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/title_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
 
 class ChronicleEntryForm extends StatefulWidget {
   const ChronicleEntryForm({Key? key}) : super(key: key);
@@ -66,7 +65,7 @@ class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
 
   _saveEntry() async {
     var snackContext = ScaffoldMessenger.of(context);
-    bool success = await EntryStorage.saveEntry(ScopedModel.of<EntryModel>(context));
+    bool success = await EntryStorage.saveEntry(SelectedEntryModel.getSelectedEntry(context));
     if (success) {
       _clearData();
       snackContext.showSnackBar(
@@ -80,7 +79,7 @@ class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
   }
 
   _clearData() {
-    var entry = ScopedModel.of<EntryModel>(context);
+    var entry = SelectedEntryModel.getSelectedEntry(context);
     if (entry.isNewEntry) {
       entry.clearProperties();
     }

@@ -1,5 +1,5 @@
 import 'package:coconut_chronicles/core/helpers/validator_helper.dart';
-import 'package:coconut_chronicles/core/models/entry_model.dart';
+import 'package:coconut_chronicles/core/models/selected_entry_model.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/indented_category_text.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/validation_error_text.dart';
 import 'package:country_picker/country_picker.dart';
@@ -16,7 +16,7 @@ class CountrySelector extends StatefulWidget {
 class _CountrySelectorState extends State<CountrySelector> {
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<EntryModel>(
+    return ScopedModelDescendant<SelectedEntryModel>(
       builder: (context, child, model) => FormField<String>(
         builder: (state) => Column(children: [
           Row(
@@ -24,7 +24,7 @@ class _CountrySelectorState extends State<CountrySelector> {
               const IndentedCategoryText(text: 'Country: '),
               TextButton(
                 onPressed: () => _openCountryPicker(),
-                child: Text(model.safeCountry),
+                child: Text(model.selectedEntry.safeCountry),
               ),
             ],
           ),
@@ -33,7 +33,7 @@ class _CountrySelectorState extends State<CountrySelector> {
               errorText: state.errorText!,
             ),
         ]),
-        validator: (_) => ValidatorHelper.emptyCountryValidator(model.country),
+        validator: (_) => ValidatorHelper.emptyCountryValidator(model.selectedEntry.country),
       ),
     );
   }
@@ -59,7 +59,7 @@ class _CountrySelectorState extends State<CountrySelector> {
       ),
       onSelect: (Country country) => {
         setState(() {
-          ScopedModel.of<EntryModel>(context).updateProperties(country: country.name);
+          ScopedModel.of<SelectedEntryModel>(context).selectedEntry.updateProperties(country: country.name);
         })
       },
     );

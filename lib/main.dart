@@ -1,3 +1,4 @@
+import 'package:coconut_chronicles/core/models/selected_entry_model.dart';
 import 'package:coconut_chronicles/core/storage/preferences_model.dart';
 import 'package:coconut_chronicles/pages/home_page.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +10,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var sharedPreferences = await SharedPreferences.getInstance();
 
+  var preferencesModel = PreferencesModel(sharedPreferences);
+  var selectedEntryModel = SelectedEntryModel();
+
   runApp(ScopedModel<PreferencesModel>(
-    model: PreferencesModel(sharedPreferences),
-    child: const CoreApp(),
-  ));
+      model: preferencesModel,
+      child: ScopedModel<SelectedEntryModel>(
+        model: selectedEntryModel,
+        child: const CoreApp(),
+      )));
 }
 
 class CoreApp extends StatelessWidget {
@@ -25,15 +31,14 @@ class CoreApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
 
-    return ScopedModelDescendant<PreferencesModel>(
-        builder: (context, child, model) => MaterialApp(
-              title: 'Coconut Chronicles',
-              theme: ThemeData(
-                useMaterial3: true,
-                colorSchemeSeed: Colors.blue,
-              ),
-              debugShowCheckedModeBanner: false,
-              home: const HomePage(),
-            ));
+    return MaterialApp(
+      title: 'Coconut Chronicles',
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.blue,
+      ),
+      debugShowCheckedModeBanner: false,
+      home: const HomePage(),
+    );
   }
 }

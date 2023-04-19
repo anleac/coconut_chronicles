@@ -2,11 +2,8 @@ import 'dart:convert';
 
 import 'package:coconut_chronicles/core/helpers/format_helper.dart';
 import 'package:coconut_chronicles/core/helpers/io_helper.dart';
-import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
 
-class EntryModel extends Model {
-  static EntryModel of(BuildContext context) => ScopedModel.of<EntryModel>(context);
+class EntryModel {
   static EntryModel newEntry() => EntryModel(createdAt: DateTime.now());
 
   String get safeTitle => title ?? "Untitled";
@@ -46,25 +43,19 @@ class EntryModel extends Model {
     _isNewEntry = title == null;
   }
 
-  void updateProperties({
-    String? title,
-    String? description,
-    DateTime? date,
-    DateTime? endDate,
-    String? country,
-    List<String>? categories,
-    bool rebuildListeners = false,
-  }) {
+  void updateProperties(
+      {String? title,
+      String? description,
+      DateTime? date,
+      DateTime? endDate,
+      String? country,
+      List<String>? categories}) {
     this.title = title ?? this.title;
     this.description = description ?? this.description;
     this.date = date ?? this.date;
     this.endDate = endDate ?? this.endDate;
     this.country = country ?? this.country;
     this.categories = categories ?? this.categories;
-
-    if (rebuildListeners) {
-      notifyListeners();
-    }
   }
 
   void clearProperties() {
@@ -75,8 +66,6 @@ class EntryModel extends Model {
     endDate = null;
     country = null;
     categories = [];
-
-    notifyListeners();
   }
 
   void addCategory(String category) {
