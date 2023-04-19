@@ -10,7 +10,9 @@ class SelectedEntryModel extends Model {
   EntryModel get selectedEntry => _selectedEntry;
 
   void selectEntry(EntryModel entry) {
+    var triggerNotify = _selectedEntry.fileSaveName != entry.fileSaveName;
     _selectedEntry = entry;
-    notifyListeners();
+
+    if (triggerNotify) notifyListeners();
   }
 }
