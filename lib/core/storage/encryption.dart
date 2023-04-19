@@ -10,8 +10,8 @@ class Encryption {
 
   static const _encryptedKeyStorage = FlutterSecureStorage();
 
-  // Currently only for Android
-  static bool get supportedPlatform => Platform.isAndroid;
+  // List of platforms that support encryption
+  static bool get supportedPlatform => Platform.isAndroid || Platform.isIOS || Platform.isMacOS || Platform.isWindows;
 
   static Future<bool> isEncryptionEnabled() async {
     if (!supportedPlatform) {
@@ -31,9 +31,10 @@ class Encryption {
     var currentIv = await _getIv();
 
     if (currentKey != null && currentIv != null) {
-      // TODO: unencrypt all files first
       return;
     }
+
+    var succeededConverting = await _decryptAllEntries(currentKey!, currentIv!);
 
     await _encryptedKeyStorage.delete(key: StorageConstants.encryptionKeyKey);
     await _encryptedKeyStorage.delete(key: StorageConstants.encryptionIvKey);
@@ -64,8 +65,14 @@ class Encryption {
   static Future<String?> _getKey() async => await _encryptedKeyStorage.read(key: StorageConstants.encryptionKeyKey);
   static Future<String?> _getIv() async => await _encryptedKeyStorage.read(key: StorageConstants.encryptionIvKey);
 
+  static Future<bool> _decryptAllEntries(String key, String iv) async {
+    // TODO Implement this method to decrypt all entries in the storage
+    return true;
+  }
+
   static String _padKeyIfNeeded(String key) {
     if (key.length < encryptionKeyLength) {
+      // TODO improve the padding security
       return key.padRight(encryptionKeyLength, '0');
     }
 

@@ -5,14 +5,14 @@ import 'package:coconut_chronicles/widgets/entry_form/inputs/validation_error_te
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-class DateSelector extends StatefulWidget {
-  const DateSelector({Key? key}) : super(key: key);
+class DateSelectors extends StatefulWidget {
+  const DateSelectors({Key? key}) : super(key: key);
 
   @override
-  State<DateSelector> createState() => _DateSelectorState();
+  State<DateSelectors> createState() => _DateSelectorsState();
 }
 
-class _DateSelectorState extends State<DateSelector> {
+class _DateSelectorsState extends State<DateSelectors> {
   // Adhoc values I believe should be sufficient for any journaling.
   static final DateTime _earliestDate = DateTime(2000);
   static final DateTime _latestDate = DateTime.now().add(const Duration(days: 31));
@@ -20,27 +20,38 @@ class _DateSelectorState extends State<DateSelector> {
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<EntryModel>(
-      builder: (context, child, model) => FormField<DateTime>(
-        builder: (state) => Column(children: [
-          Row(children: [
-            const IndentedCategoryText(text: 'Date: '),
-            TextButton(
-              onPressed: () => _openDatePicker(currentDate: model.date, endDate: false),
-              child: Text(model.safeDate),
-            ),
-            if (model.date != null) const Text('End Date (Optional): '),
-            if (model.date != null)
-              TextButton(
-                  onPressed: () => _openDatePicker(currentDate: model.endDate, endDate: true),
-                  child: Text(model.safeEndDate)),
-          ]),
-          if (state.hasError)
-            ValidationErrorText(
-              errorText: state.errorText!,
-            ),
+      builder: (context, child, model) => Column(children: [
+        Row(
+          children: [
+            FormField<DateTime>(
+              builder: (state) => Column(
+                children: [
+                  Row(children: [
+                    const IndentedCategoryText(text: 'Date: '),
+                    TextButton(
+                      onPressed: () => _openDatePicker(currentDate: model.date, endDate: false),
+                      child: Text(model.safeDate),
+                    ),
+                  ]),
+                  if (state.hasError)
+                    ValidationErrorText(
+                      errorText: state.errorText!,
+                    ),
+                ],
+              ),
+              validator: (_) => ValidatorHelper.emptyDateValidator(model.date),
+            )
+          ],
+        ),
+        Row(children: [
+          const IndentedCategoryText(
+            text: 'End Date (Optional): ',
+          ),
+          TextButton(
+              onPressed: () => _openDatePicker(currentDate: model.endDate, endDate: true),
+              child: Text(model.safeEndDate)),
         ]),
-        validator: (_) => ValidatorHelper.emptyDateValidator(model.date),
-      ),
+      ]),
     );
   }
 

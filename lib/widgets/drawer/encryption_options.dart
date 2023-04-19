@@ -23,7 +23,9 @@ class _EncryptionOptionsState extends State<EncryptionOptions> {
               enabled: Encryption.supportedPlatform,
               trailing: Switch(
                 value: data,
-                onChanged: (value) => value ? _trySetEncryptionKey() : _tryClearEncryptionKey(),
+                onChanged: Encryption.supportedPlatform
+                    ? (value) => value ? _trySetEncryptionKey() : _tryClearEncryptionKey()
+                    : null,
               ),
             );
           }

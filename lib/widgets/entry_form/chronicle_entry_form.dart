@@ -3,7 +3,7 @@ import 'package:coconut_chronicles/core/models/entry_model.dart';
 import 'package:coconut_chronicles/core/storage/entry_storage.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/chip_categories.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/country_selector.dart';
-import 'package:coconut_chronicles/widgets/entry_form/inputs/date_selector.dart';
+import 'package:coconut_chronicles/widgets/entry_form/inputs/date_selectors.dart';
 import 'package:coconut_chronicles/widgets/dialogues/confirmation_dialogue_builder.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/description_text_field.dart';
 import 'package:coconut_chronicles/widgets/entry_form/inputs/indented_category_text.dart';
@@ -29,7 +29,8 @@ class _ChronicleEntryFormState extends State<ChronicleEntryForm> {
         const SizedBox(height: 4),
         const TitleTextField(),
         const SizedBox(height: 8),
-        const DateSelector(),
+        const DateSelectors(),
+        const Divider(),
         const CountrySelector(),
         const SizedBox(height: 8),
         const DescriptionTextField(),
