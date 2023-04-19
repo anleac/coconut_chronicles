@@ -20,27 +20,38 @@ class _DateSelectorState extends State<DateSelector> {
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<EntryModel>(
-      builder: (context, child, model) => FormField<DateTime>(
-        builder: (state) => Column(children: [
-          Row(children: [
-            const IndentedCategoryText(text: 'Date: '),
-            TextButton(
-              onPressed: () => _openDatePicker(currentDate: model.date, endDate: false),
-              child: Text(model.safeDate),
-            ),
-            if (model.date != null) const Text('End Date (Optional): '),
-            if (model.date != null)
-              TextButton(
-                  onPressed: () => _openDatePicker(currentDate: model.endDate, endDate: true),
-                  child: Text(model.safeEndDate)),
-          ]),
-          if (state.hasError)
-            ValidationErrorText(
-              errorText: state.errorText!,
-            ),
+      builder: (context, child, model) => Column(children: [
+        Row(
+          children: [
+            FormField<DateTime>(
+              builder: (state) => Column(
+                children: [
+                  Row(children: [
+                    const IndentedCategoryText(text: 'Date: '),
+                    TextButton(
+                      onPressed: () => _openDatePicker(currentDate: model.date, endDate: false),
+                      child: Text(model.safeDate),
+                    ),
+                  ]),
+                  if (state.hasError)
+                    ValidationErrorText(
+                      errorText: state.errorText!,
+                    ),
+                ],
+              ),
+              validator: (_) => ValidatorHelper.emptyDateValidator(model.date),
+            )
+          ],
+        ),
+        Row(children: [
+          const IndentedCategoryText(
+            text: 'End Date (Optional): ',
+          ),
+          TextButton(
+              onPressed: () => _openDatePicker(currentDate: model.endDate, endDate: true),
+              child: Text(model.safeEndDate)),
         ]),
-        validator: (_) => ValidatorHelper.emptyDateValidator(model.date),
-      ),
+      ]),
     );
   }
 
