@@ -49,9 +49,10 @@ class _EncryptionOptionsState extends State<EncryptionOptions> {
   }
 
   _tryClearEncryptionKey() async {
-    ConfirmationDialogueBuilder.showConfirmToClearEncryptionKeyDialogue(context, onConfirm: () async {
+    var clearConfirmation = await ConfirmationDialogueBuilder.showClearEncryptionKey(context);
+    if (clearConfirmation) {
       await Encryption.clearEncryptionKey();
       setState(() {});
-    });
+    }
   }
 }

@@ -19,9 +19,11 @@ class _SubmissionButtonsState extends State<SubmissionButtons> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           TextButton(
-            onPressed: () =>
-                ConfirmationDialogueBuilder.showConfirmToClearEntryFormDialogue(context, onConfirm: _clearData),
+            onPressed: () => _clearData(),
             child: Text(model.isNewEntry ? 'Clear' : 'Undo changes'),
+          ),
+          const SizedBox(
+            width: 8,
           ),
           TextButton(
             onPressed: () {
@@ -29,7 +31,7 @@ class _SubmissionButtonsState extends State<SubmissionButtons> {
                 _saveEntry();
               }
             },
-            child: Text(model.isNewEntry ? 'Save' : 'Update'),
+            child: Text(model.isNewEntry ? 'Save entry' : 'Update entry'),
           ),
           const SizedBox(
             width: 8,
@@ -54,7 +56,15 @@ class _SubmissionButtonsState extends State<SubmissionButtons> {
     }
   }
 
-  _clearData() {
-    SelectedEntryModel.of(context).resetEntryForm();
+  _clearData() async {
+    var selectedModel = SelectedEntryModel.of(context);
+    var clearDialogue = selectedModel.isNewEntry
+        ? ConfirmationDialogueBuilder.showClearEntryForm(context)
+        : ConfirmationDialogueBuilder.showConfirmUndoChanges(context);
+
+    var result = await clearDialogue;
+    if (result) {
+      selectedModel.resetEntryForm();
+    }
   }
 }
