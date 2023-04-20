@@ -16,7 +16,7 @@ class DescriptionTextField extends StatelessWidget {
               ),
               maxLines: null,
               minLines: 10,
-              initialValue: model.selectedEntry.description,
+              controller: SelectedEntryModel.of(context).descriptionController,
               onChanged: (value) => model.selectedEntry.updateProperties(description: value),
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.multiline,

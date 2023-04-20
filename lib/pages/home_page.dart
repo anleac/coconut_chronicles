@@ -1,6 +1,8 @@
+import 'package:coconut_chronicles/core/models/selected_entry_model.dart';
 import 'package:coconut_chronicles/widgets/entry_form/chronicle_entry_form.dart';
 import 'package:coconut_chronicles/widgets/home_page_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,7 +18,9 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New entry'),
+        title: ScopedModelDescendant<SelectedEntryModel>(builder: (context, child, model) {
+          return Text(model.selectedEntry.isNewEntry ? 'New entry' : model.selectedEntry.safeTitle);
+        }),
       ),
       // floatingActionButton: const HomePageFab(),
       drawer: const HomePageDrawer(),

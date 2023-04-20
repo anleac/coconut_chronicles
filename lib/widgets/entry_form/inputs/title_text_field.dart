@@ -3,14 +3,9 @@ import 'package:coconut_chronicles/core/models/selected_entry_model.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-class TitleTextField extends StatefulWidget {
+class TitleTextField extends StatelessWidget {
   const TitleTextField({Key? key}) : super(key: key);
 
-  @override
-  State<TitleTextField> createState() => _TitleTextFieldState();
-}
-
-class _TitleTextFieldState extends State<TitleTextField> {
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<SelectedEntryModel>(builder: (context, child, model) {
@@ -20,9 +15,10 @@ class _TitleTextFieldState extends State<TitleTextField> {
           border: OutlineInputBorder(),
           labelText: 'Captivating title',
         ),
-        initialValue: model.selectedEntry.title,
+        controller: SelectedEntryModel.of(context).titleController,
         onChanged: (value) => model.selectedEntry.updateProperties(title: value),
         validator: (value) => ValidatorHelper.emptyTextValidator(value),
+        textCapitalization: TextCapitalization.sentences,
       );
     });
   }

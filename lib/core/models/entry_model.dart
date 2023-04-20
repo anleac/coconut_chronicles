@@ -58,16 +58,6 @@ class EntryModel {
     this.categories = categories ?? this.categories;
   }
 
-  void clearProperties() {
-    title = null;
-    description = null;
-    createdAt = DateTime.now();
-    date = null;
-    endDate = null;
-    country = null;
-    categories = [];
-  }
-
   void addCategory(String category) {
     if (!categories.contains(category)) {
       categories.add(category);
@@ -84,7 +74,7 @@ class EntryModel {
       'description': description,
       'country': country,
       'createdAt': IoHelper.saveDateToFile(createdAt),
-      'date': IoHelper.saveDateToFile(date!),
+      'date': date != null ? IoHelper.saveDateToFile(date!) : null,
       'endDate': endDate != null ? IoHelper.saveDateToFile(endDate!) : null,
       'categories': categories,
     });
@@ -102,4 +92,6 @@ class EntryModel {
       categories: List<String>.from(decodedJson['categories']),
     );
   }
+
+  static EntryModel clone(EntryModel entry) => fromJson(entry.toJson());
 }

@@ -9,10 +9,28 @@ class SelectedEntryModel extends Model {
   EntryModel _selectedEntry = EntryModel.newEntry();
   EntryModel get selectedEntry => _selectedEntry;
 
-  void selectEntry(EntryModel entry) {
-    var triggerNotify = _selectedEntry.fileSaveName != entry.fileSaveName;
-    _selectedEntry = entry;
+  // Global variables related to the entry form
+  final GlobalKey<FormState> _entryFormKey = GlobalKey<FormState>();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
 
-    if (triggerNotify) notifyListeners();
+  GlobalKey<FormState> get entryFormKey => _entryFormKey;
+  TextEditingController get titleController => _titleController;
+  TextEditingController get descriptionController => _descriptionController;
+
+  void selectEntry(EntryModel entry) {
+    if (_selectedEntry.fileSaveName == entry.fileSaveName) return;
+
+    // Clone to avoid modifying the original entry
+    _selectedEntry = EntryModel.clone(entry);
+
+    _titleController.text = entry.title ?? '';
+    _descriptionController.text = entry.description ?? '';
+
+    notifyListeners();
+  }
+
+  void clearEntryForm() {
+    selectEntry(EntryModel.newEntry());
   }
 }
