@@ -2,11 +2,8 @@ import 'dart:convert';
 
 import 'package:coconut_chronicles/core/helpers/format_helper.dart';
 import 'package:coconut_chronicles/core/helpers/io_helper.dart';
-import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
 
-class EntryModel extends Model {
-  static EntryModel of(BuildContext context) => ScopedModel.of<EntryModel>(context);
+class EntryModel {
   static EntryModel newEntry() => EntryModel(createdAt: DateTime.now());
 
   String get safeTitle => title ?? "Untitled";
@@ -46,37 +43,19 @@ class EntryModel extends Model {
     _isNewEntry = title == null;
   }
 
-  void updateProperties({
-    String? title,
-    String? description,
-    DateTime? date,
-    DateTime? endDate,
-    String? country,
-    List<String>? categories,
-    bool rebuildListeners = false,
-  }) {
+  void updateProperties(
+      {String? title,
+      String? description,
+      DateTime? date,
+      DateTime? endDate,
+      String? country,
+      List<String>? categories}) {
     this.title = title ?? this.title;
     this.description = description ?? this.description;
     this.date = date ?? this.date;
     this.endDate = endDate ?? this.endDate;
     this.country = country ?? this.country;
     this.categories = categories ?? this.categories;
-
-    if (rebuildListeners) {
-      notifyListeners();
-    }
-  }
-
-  void clearProperties() {
-    title = null;
-    description = null;
-    createdAt = DateTime.now();
-    date = null;
-    endDate = null;
-    country = null;
-    categories = [];
-
-    notifyListeners();
   }
 
   void addCategory(String category) {
@@ -95,8 +74,8 @@ class EntryModel extends Model {
       'description': description,
       'country': country,
       'createdAt': IoHelper.saveDateToFile(createdAt),
-      'date': IoHelper.saveDateToFile(date!),
-      'endDate': endDate != null ? IoHelper.saveDateToFile(endDate!) : null,
+      'date': IoHelper.saveDateToFile(date),
+      'endDate': IoHelper.saveDateToFile(endDate),
       'categories': categories,
     });
   }
@@ -107,10 +86,12 @@ class EntryModel extends Model {
       title: decodedJson['title'],
       description: decodedJson['description'],
       country: decodedJson['country'],
-      createdAt: IoHelper.readDateFromSave(decodedJson['createdAt']),
-      date: IoHelper.readDateFromSave(decodedJson['createdAt']),
-      endDate: IoHelper.readDateFromSave(decodedJson['createdAt']),
+      createdAt: IoHelper.readDateFromSave(decodedJson['createdAt'])!, // This should never be null
+      date: IoHelper.readDateFromSave(decodedJson['date']),
+      endDate: IoHelper.readDateFromSave(decodedJson['endDate']),
       categories: List<String>.from(decodedJson['categories']),
     );
   }
+
+  static EntryModel clone(EntryModel entry) => fromJson(entry.toJson());
 }
