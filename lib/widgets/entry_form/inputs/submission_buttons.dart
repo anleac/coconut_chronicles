@@ -55,11 +55,6 @@ class _SubmissionButtonsState extends State<SubmissionButtons> {
   }
 
   _clearData() {
-    var model = SelectedEntryModel.of(context);
-    if (model.isNewEntry) {
-      model.clearEntryForm();
-    } else {
-      model.resetEntryForm();
-    }
+    SelectedEntryModel.of(context).resetEntryForm();
   }
 }

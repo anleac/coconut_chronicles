@@ -74,8 +74,8 @@ class EntryModel {
       'description': description,
       'country': country,
       'createdAt': IoHelper.saveDateToFile(createdAt),
-      'date': date != null ? IoHelper.saveDateToFile(date!) : null,
-      'endDate': endDate != null ? IoHelper.saveDateToFile(endDate!) : null,
+      'date': IoHelper.saveDateToFile(date),
+      'endDate': IoHelper.saveDateToFile(endDate),
       'categories': categories,
     });
   }
@@ -86,9 +86,9 @@ class EntryModel {
       title: decodedJson['title'],
       description: decodedJson['description'],
       country: decodedJson['country'],
-      createdAt: IoHelper.readDateFromSave(decodedJson['createdAt']),
-      date: IoHelper.readDateFromSave(decodedJson['createdAt']),
-      endDate: IoHelper.readDateFromSave(decodedJson['createdAt']),
+      createdAt: IoHelper.readDateFromSave(decodedJson['createdAt'])!, // This should never be null
+      date: IoHelper.readDateFromSave(decodedJson['date']),
+      endDate: IoHelper.readDateFromSave(decodedJson['endDate']),
       categories: List<String>.from(decodedJson['categories']),
     );
   }

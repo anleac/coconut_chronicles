@@ -10,7 +10,9 @@ class SelectedEntryModel extends Model {
   EntryModel get selectedEntry => _selectedEntry;
   bool get isNewEntry => _selectedEntry.isNewEntry;
 
-  late EntryModel _originalEntry = _selectedEntry;
+  // This will always store the original entry ref, while _selectedEntry will be a clone
+  // For the initial setup, it is OK to have two new entries to mimic this behaviour.
+  EntryModel _originalEntry = EntryModel.newEntry();
 
   // Global variables related to the entry form
   final GlobalKey<FormState> _entryFormKey = GlobalKey<FormState>();
@@ -36,9 +38,5 @@ class SelectedEntryModel extends Model {
 
   void resetEntryForm() {
     selectEntry(_originalEntry, forceUpdate: true);
-  }
-
-  void clearEntryForm() {
-    selectEntry(EntryModel.newEntry());
   }
 }
