@@ -19,7 +19,7 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: ScopedModelDescendant<SelectedEntryModel>(builder: (context, child, model) {
-          return Text(model.selectedEntry.isNewEntry ? 'New entry' : model.selectedEntry.safeTitle);
+          return Text(model.isNewEntry ? 'New entry' : model.selectedEntry.safeTitle);
         }),
       ),
       // floatingActionButton: const HomePageFab(),

@@ -8,6 +8,9 @@ class SelectedEntryModel extends Model {
 
   EntryModel _selectedEntry = EntryModel.newEntry();
   EntryModel get selectedEntry => _selectedEntry;
+  bool get isNewEntry => _selectedEntry.isNewEntry;
+
+  late EntryModel _originalEntry = _selectedEntry;
 
   // Global variables related to the entry form
   final GlobalKey<FormState> _entryFormKey = GlobalKey<FormState>();
@@ -18,16 +21,21 @@ class SelectedEntryModel extends Model {
   TextEditingController get titleController => _titleController;
   TextEditingController get descriptionController => _descriptionController;
 
-  void selectEntry(EntryModel entry) {
-    if (_selectedEntry.fileSaveName == entry.fileSaveName) return;
+  void selectEntry(EntryModel entry, {bool forceUpdate = false}) {
+    if (_selectedEntry.fileSaveName == entry.fileSaveName && !forceUpdate) return;
 
     // Clone to avoid modifying the original entry
     _selectedEntry = EntryModel.clone(entry);
+    _originalEntry = entry;
 
     _titleController.text = entry.title ?? '';
     _descriptionController.text = entry.description ?? '';
 
     notifyListeners();
+  }
+
+  void resetEntryForm() {
+    selectEntry(_originalEntry, forceUpdate: true);
   }
 
   void clearEntryForm() {

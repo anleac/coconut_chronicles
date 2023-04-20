@@ -21,7 +21,7 @@ class _SubmissionButtonsState extends State<SubmissionButtons> {
           TextButton(
             onPressed: () =>
                 ConfirmationDialogueBuilder.showConfirmToClearEntryFormDialogue(context, onConfirm: _clearData),
-            child: Text(model.selectedEntry.isNewEntry ? 'Clear' : 'Undo changes'),
+            child: Text(model.isNewEntry ? 'Clear' : 'Undo changes'),
           ),
           TextButton(
             onPressed: () {
@@ -29,7 +29,7 @@ class _SubmissionButtonsState extends State<SubmissionButtons> {
                 _saveEntry();
               }
             },
-            child: Text(model.selectedEntry.isNewEntry ? 'Save' : 'Update'),
+            child: Text(model.isNewEntry ? 'Save' : 'Update'),
           ),
           const SizedBox(
             width: 8,
@@ -55,6 +55,11 @@ class _SubmissionButtonsState extends State<SubmissionButtons> {
   }
 
   _clearData() {
-    SelectedEntryModel.of(context).clearEntryForm();
+    var model = SelectedEntryModel.of(context);
+    if (model.isNewEntry) {
+      model.clearEntryForm();
+    } else {
+      model.resetEntryForm();
+    }
   }
 }
