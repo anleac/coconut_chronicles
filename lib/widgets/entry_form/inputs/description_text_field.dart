@@ -12,9 +12,10 @@ class DescriptionTextField extends StatelessWidget {
         builder: (context, child, model) => TextFormField(
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Description of the day',
+                alignLabelWithHint: true,
+                labelText: 'Description of the day(s)',
               ),
-              maxLines: null,
+              maxLines: 25,
               minLines: 10,
               controller: SelectedEntryModel.of(context).descriptionController,
               onChanged: (value) => model.selectedEntry.updateProperties(description: value),

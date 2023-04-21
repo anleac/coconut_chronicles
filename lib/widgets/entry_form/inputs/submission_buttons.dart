@@ -61,9 +61,10 @@ class _SubmissionButtonsState extends State<SubmissionButtons> {
 
   _saveEntry() async {
     var snackContext = ScaffoldMessenger.of(context);
+    var selectedModel = SelectedEntryModel.of(context);
     bool success = await EntryStorage.saveEntry(SelectedEntryModel.getSelectedEntry(context));
     if (success) {
-      _clearData();
+      selectedModel.overrideOriginalEntry();
       snackContext.showSnackBar(
         const SnackBar(content: Text('Saved chronicle entry')),
       );
