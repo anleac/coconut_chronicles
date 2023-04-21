@@ -1,3 +1,4 @@
+import 'package:coconut_chronicles/core/helpers/entry_helper.dart';
 import 'package:coconut_chronicles/core/models/entry_model.dart';
 import 'package:coconut_chronicles/core/models/selected_entry_model.dart';
 import 'package:coconut_chronicles/core/storage/entry_storage.dart';
@@ -14,8 +15,6 @@ class ChronicleEntryList extends StatefulWidget {
 class _ChronicleEntryListState extends State<ChronicleEntryList> {
   @override
   Widget build(BuildContext context) {
-    var selectedEntryModel = SelectedEntryModel.of(context);
-
     return Column(children: [
       const Text("Past entries"),
       SizedBox(
@@ -36,11 +35,13 @@ class _ChronicleEntryListState extends State<ChronicleEntryList> {
                     var entry = entries[index];
                     return EntryListTitle(
                         entry: entry,
-                        onTap: () {
-                          selectedEntryModel.selectEntry(entry);
-
-                          // TODO this only works within the context of a drawer
-                          Navigator.pop(context);
+                        onTap: () async {
+                          var navigator = Navigator.of(context);
+                          var selected = await EntryHelper.safeSelectEntry(context, entry);
+                          if (selected) {
+                            // TODO this only works within the context of a drawer
+                            navigator.pop();
+                          }
                         });
                   },
                 );
