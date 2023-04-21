@@ -11,6 +11,26 @@ class ConfirmationDialogueBuilder {
     );
   }
 
+  static Future<bool> showConfirmDeleteEntry(BuildContext context) async {
+    return await _showConfirmationDialogue(
+      context,
+      title: "Delete entry",
+      content: "Are you sure you want to delete this entry?",
+      confirmText: "Delete",
+      cancelText: "Cancel",
+    );
+  }
+
+  static Future<bool> showConfirmDiscardChanges(BuildContext context) async {
+    return await _showConfirmationDialogue(
+      context,
+      title: "Discard changes",
+      content: "You've made unsaved changes. Are you sure you continue without saving?",
+      confirmText: "Continue",
+      cancelText: "Cancel",
+    );
+  }
+
   static Future<bool> showConfirmUndoChanges(BuildContext context) async {
     return await _showConfirmationDialogue(
       context,

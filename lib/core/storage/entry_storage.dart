@@ -27,6 +27,19 @@ class EntryStorage {
     }
   }
 
+  static Future<bool> deleteEntry(EntryModel entry) async {
+    // TODO we need to shift the encryption logic onto the entry itself.
+    var encryptionEnabled = await Encryption.isEncryptionEnabled();
+    var file = await StorageHelper.getEntryFile(entry, encrypted: encryptionEnabled);
+    try {
+      await file.delete();
+      _entries.remove(entry.fileSaveName);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   static Future<List<EntryModel>> loadEntries() async {
     if (_entries.isNotEmpty) {
       return _entries.values.toList();

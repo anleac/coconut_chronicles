@@ -39,4 +39,8 @@ class SelectedEntryModel extends Model {
   void resetEntryForm() {
     selectEntry(_originalEntry, forceUpdate: true);
   }
+
+  bool haveActiveChanges() {
+    return _selectedEntry.toJson() != _originalEntry.toJson();
+  }
 }
