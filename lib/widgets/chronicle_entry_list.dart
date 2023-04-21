@@ -1,6 +1,5 @@
 import 'package:coconut_chronicles/core/helpers/entry_helper.dart';
 import 'package:coconut_chronicles/core/models/entry_model.dart';
-import 'package:coconut_chronicles/core/models/selected_entry_model.dart';
 import 'package:coconut_chronicles/core/storage/entry_storage.dart';
 import 'package:coconut_chronicles/widgets/entry_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,7 @@ class _ChronicleEntryListState extends State<ChronicleEntryList> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      const Text("Past entries"),
+      const Text("Past entries", style: TextStyle(fontSize: 20)),
       SizedBox(
           height: 400,
           child: FutureBuilder(
