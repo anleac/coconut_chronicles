@@ -1,19 +1,35 @@
+import 'dart:convert';
+
+import 'package:coconut_chronicles/core/helpers/io_helper.dart';
 import 'package:coconut_chronicles/core/models/entry_model.dart';
-import 'package:coconut_chronicles/core/models/selected_entry_model.dart';
-import 'package:coconut_chronicles/widgets/dialogues/confirmation_dialogue_builder.dart';
-import 'package:flutter/material.dart';
 
 class EntryHelper {
-  // Helper function to ensure that the user only navigates if they have no active changes, or willing to lose them.
-  static Future<bool> safeSelectEntry(BuildContext context, EntryModel model) async {
-    var selectedEntryModel = SelectedEntryModel.of(context);
-    var canSelect =
-        !selectedEntryModel.haveActiveChanges() || await ConfirmationDialogueBuilder.showConfirmDiscardChanges(context);
+  static EntryModel newEntry() => EntryModel(createdAt: DateTime.now());
 
-    if (canSelect) {
-      selectedEntryModel.selectEntry(model);
-    }
-
-    return canSelect;
+  static String toJson(EntryModel entry) {
+    return jsonEncode({
+      'title': entry.title,
+      'description': entry.description,
+      'country': entry.country,
+      'createdAt': IoHelper.saveDateToFile(entry.createdAt),
+      'date': IoHelper.saveDateToFile(entry.date),
+      'endDate': IoHelper.saveDateToFile(entry.endDate),
+      'categories': entry.categories,
+    });
   }
+
+  static EntryModel fromJson(String json) {
+    var decodedJson = jsonDecode(json);
+    return EntryModel(
+      title: decodedJson['title'],
+      description: decodedJson['description'],
+      country: decodedJson['country'],
+      createdAt: IoHelper.readDateFromSave(decodedJson['createdAt'])!, // This should never be null
+      date: IoHelper.readDateFromSave(decodedJson['date']),
+      endDate: IoHelper.readDateFromSave(decodedJson['endDate']),
+      categories: List<String>.from(decodedJson['categories']),
+    );
+  }
+
+  static EntryModel clone(EntryModel entry) => fromJson(toJson(entry));
 }

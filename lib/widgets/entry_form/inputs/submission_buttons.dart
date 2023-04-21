@@ -1,5 +1,5 @@
 import 'package:coconut_chronicles/core/helpers/entry_helper.dart';
-import 'package:coconut_chronicles/core/models/entry_model.dart';
+import 'package:coconut_chronicles/core/helpers/selected_entry_helper.dart';
 import 'package:coconut_chronicles/core/models/selected_entry_model.dart';
 import 'package:coconut_chronicles/core/storage/entry_storage.dart';
 import 'package:coconut_chronicles/widgets/dialogues/confirmation_dialogue_builder.dart';
@@ -30,7 +30,7 @@ class _SubmissionButtonsState extends State<SubmissionButtons> {
                 ),
               if (!model.isNewEntry)
                 TextButton(
-                  onPressed: () => EntryHelper.safeSelectEntry(context, EntryModel.newEntry()),
+                  onPressed: () => SelectedEntryHelper.safeSelectEntry(context, EntryHelper.newEntry()),
                   child: const Text('New entry'),
                 ),
               TextButton(
