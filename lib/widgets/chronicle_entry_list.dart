@@ -36,9 +36,11 @@ class _ChronicleEntryListState extends State<ChronicleEntryList> {
                     return EntryListTitle(
                         entry: entry,
                         onTap: () async {
+                          var navigator = Navigator.of(context);
                           var selected = await EntryHelper.safeSelectEntry(context, entry);
                           if (selected) {
-                            _closeDrawer();
+                            // TODO this only works within the context of a drawer
+                            navigator.pop();
                           }
                         });
                   },
@@ -49,10 +51,5 @@ class _ChronicleEntryListState extends State<ChronicleEntryList> {
             },
           ))
     ]);
-  }
-
-  _closeDrawer() {
-    // TODO this only works within the context of a drawer
-    Navigator.pop(context);
   }
 }
