@@ -26,7 +26,7 @@ class EntryModel {
   DateTime? endDate;
 
   late List<String> categories;
-  late final bool _isNewEntry;
+  late bool _isNewEntry;
 
   // This should almost -always- be unique
   int get fileSaveName => createdAt.millisecondsSinceEpoch;
@@ -66,6 +66,10 @@ class EntryModel {
 
   void removeCategory(String category) {
     categories.remove(category);
+  }
+
+  void markAsSaved() {
+    _isNewEntry = false;
   }
 
   toJson() {

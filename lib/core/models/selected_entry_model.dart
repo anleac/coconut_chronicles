@@ -43,6 +43,11 @@ class SelectedEntryModel extends Model {
     selectEntry(_originalEntry, forceUpdate: true);
   }
 
+  void overrideOriginalEntry() {
+    _originalEntry = EntryModel.clone(_selectedEntry);
+    notifyListeners();
+  }
+
   bool haveActiveChanges() {
     return _selectedEntry.toJson() != _originalEntry.toJson();
   }

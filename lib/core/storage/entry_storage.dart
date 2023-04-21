@@ -21,6 +21,9 @@ class EntryStorage {
 
       // TODO: We have no way of handling duplicates yet
       _entries[entry.fileSaveName] = entry;
+
+      entry.markAsSaved();
+
       return true;
     } catch (e) {
       return false;
