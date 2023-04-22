@@ -18,15 +18,12 @@ class _EncryptionOptionsState extends State<EncryptionOptions> {
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           if (snapshot.hasData) {
             var data = snapshot.data!;
-            return ListTile(
+            return SwitchListTile(
               title: const Text('Encrypted data'),
-              enabled: Encryption.supportedPlatform,
-              trailing: Switch(
-                value: data,
-                onChanged: Encryption.supportedPlatform
-                    ? (value) => value ? _trySetEncryptionKey() : _tryClearEncryptionKey()
-                    : null,
-              ),
+              value: data,
+              onChanged: Encryption.supportedPlatform
+                  ? (value) => value ? _trySetEncryptionKey() : _tryClearEncryptionKey()
+                  : null,
             );
           }
 

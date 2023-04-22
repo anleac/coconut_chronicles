@@ -6,6 +6,7 @@ class PreferencesModel extends Model {
   static PreferencesModel of(BuildContext context) => ScopedModel.of<PreferencesModel>(context);
 
   static const biometricRequiredOnBootKey = "_asdgnj123a";
+  static const darkModeKey = "_asdgnj123b";
 
   late bool _biometricRequiredOnBoot = _sharedPreferences.getBool(biometricRequiredOnBootKey) ?? false;
   bool get biometricRequiredOnBoot => _biometricRequiredOnBoot;
@@ -17,9 +18,5 @@ class PreferencesModel extends Model {
   void setBiometricRequired(bool newValue) {
     _biometricRequiredOnBoot = newValue;
     _sharedPreferences.setBool(biometricRequiredOnBootKey, _biometricRequiredOnBoot);
-  }
-
-  void forceRefresh() {
-    notifyListeners();
   }
 }
