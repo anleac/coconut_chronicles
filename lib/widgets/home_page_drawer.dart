@@ -1,5 +1,6 @@
 import 'package:coconut_chronicles/core/storage/preferences_model.dart';
 import 'package:coconut_chronicles/widgets/chronicle_entry_list.dart';
+import 'package:coconut_chronicles/widgets/drawer/dark_mode_toggle.dart';
 import 'package:coconut_chronicles/widgets/drawer/encryption_options.dart';
 import 'package:coconut_chronicles/widgets/drawer/version_text.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
           ChronicleEntryList(),
           Divider(),
           EncryptionOptions(),
+          DarkModeToggle(),
           Divider(),
           VersionText()
         ]),

@@ -7,7 +7,8 @@ class DefaultConstants {
     "Dating",
     "Night out",
     "Achievement",
-    "Unique Experience",
+    "Unique experience",
     "Gaming",
+    "Past memory"
   ];
 }
