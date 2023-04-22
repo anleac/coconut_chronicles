@@ -12,6 +12,7 @@ class EntryHelper {
       'description': entry.description,
       'country': entry.country,
       'createdAt': IoHelper.saveDateToFile(entry.createdAt),
+      'lastUpdated': IoHelper.saveDateToFile(entry.lastUpdated),
       'date': IoHelper.saveDateToFile(entry.date),
       'endDate': IoHelper.saveDateToFile(entry.endDate),
       'categories': entry.categories,
@@ -25,6 +26,7 @@ class EntryHelper {
       description: decodedJson['description'],
       country: decodedJson['country'],
       createdAt: IoHelper.readDateFromSave(decodedJson['createdAt'])!, // This should never be null
+      lastUpdated: IoHelper.readDateFromSave(decodedJson['lastUpdated'])!, // This should never be null
       date: IoHelper.readDateFromSave(decodedJson['date']),
       endDate: IoHelper.readDateFromSave(decodedJson['endDate']),
       categories: List<String>.from(decodedJson['categories']),
