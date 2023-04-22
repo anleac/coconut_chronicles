@@ -19,13 +19,14 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
     return ScopedModelDescendant<PreferencesModel>(builder: (context, child, model) {
       return Drawer(
         child: ListView(padding: EdgeInsets.zero, children: const [
-          SizedBox(height: 40),
+          SizedBox(height: 24),
           ChronicleEntryList(),
           Divider(),
           EncryptionOptions(),
           DarkModeToggle(),
           Divider(),
-          VersionText()
+          VersionText(),
+          SizedBox(height: 24)
         ]),
       );
     });

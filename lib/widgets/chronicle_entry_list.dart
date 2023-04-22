@@ -16,8 +16,9 @@ class _ChronicleEntryListState extends State<ChronicleEntryList> {
   Widget build(BuildContext context) {
     return Column(children: [
       const Text("Past entries", style: TextStyle(fontSize: 20)),
+      const SizedBox(height: 8),
       SizedBox(
-          height: 400,
+          height: 300,
           child: FutureBuilder(
             future: EntryStorage.loadEntries(),
             builder: (context, snapshot) {

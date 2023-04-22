@@ -18,12 +18,11 @@ class EntryStorage {
         fileContentsToWrite = await Encryption.encrypt(fileContentsToWrite);
       }
 
+      entry.markAsUpdated();
       await file.writeAsString(fileContentsToWrite);
 
       // TODO: We have no way of handling duplicates yet
       _entries[entry.fileSaveName] = entry;
-
-      entry.markAsSaved();
 
       return true;
     } catch (e) {
