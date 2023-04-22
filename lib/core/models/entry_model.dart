@@ -65,11 +65,8 @@ class EntryModel {
     categories.remove(category);
   }
 
-  void markAsSaved() {
-    _isNewEntry = false;
-  }
-
   void markAsUpdated() {
+    _isNewEntry = false;
     lastUpdated = DateTime.now();
   }
 }
