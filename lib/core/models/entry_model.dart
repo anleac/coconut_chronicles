@@ -20,6 +20,7 @@ class EntryModel {
   String? title;
   String? description;
   String? country;
+  String? memorableSongs;
 
   @EpochDateTimeConverter()
   DateTime createdAt;
@@ -47,7 +48,8 @@ class EntryModel {
       required this.createdAt,
       this.lastUpdated,
       this.date,
-      this.endDate}) {
+      this.endDate,
+      this.memorableSongs}) {
     this.categories = categories ?? [];
     _isNewEntry = title == null;
   }
@@ -58,12 +60,14 @@ class EntryModel {
       DateTime? date,
       DateTime? endDate,
       String? country,
+      String? memorableSongs,
       List<String>? categories}) {
     this.title = title ?? this.title;
     this.description = description ?? this.description;
     this.date = date ?? this.date;
     this.endDate = endDate ?? this.endDate;
     this.country = country ?? this.country;
+    this.memorableSongs = memorableSongs ?? this.memorableSongs;
     this.categories = categories ?? this.categories;
   }
 

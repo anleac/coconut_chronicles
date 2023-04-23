@@ -18,6 +18,7 @@ EntryModel _$EntryModelFromJson(Map<String, dynamic> json) => EntryModel(
           const EpochDateTimeConverter().fromJson(json['lastUpdated'] as int?),
       date: const EpochDateTimeConverter().fromJson(json['date'] as int?),
       endDate: const EpochDateTimeConverter().fromJson(json['endDate'] as int?),
+      memorableSongs: json['memorableSongs'] as String?,
     );
 
 Map<String, dynamic> _$EntryModelToJson(EntryModel instance) =>
@@ -25,6 +26,7 @@ Map<String, dynamic> _$EntryModelToJson(EntryModel instance) =>
       'title': instance.title,
       'description': instance.description,
       'country': instance.country,
+      'memorableSongs': instance.memorableSongs,
       'createdAt': instance.createdAt.toIso8601String(),
       'date': const EpochDateTimeConverter().toJson(instance.date),
       'endDate': const EpochDateTimeConverter().toJson(instance.endDate),
