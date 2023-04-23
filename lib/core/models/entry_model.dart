@@ -1,5 +1,12 @@
-import 'package:coconut_chronicles/core/helpers/format_helper.dart';
+import 'dart:convert';
 
+import 'package:coconut_chronicles/core/helpers/format_helper.dart';
+import 'package:coconut_chronicles/core/storage/serialization/epoch_datetime_converter.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'entry_model.g.dart';
+
+@JsonSerializable()
 class EntryModel {
   String get safeTitle => title ?? "Untitled";
   String get safeDescription => description ?? "No description";
@@ -14,11 +21,16 @@ class EntryModel {
   String? description;
   String? country;
 
+  @EpochDateTimeConverter()
   DateTime createdAt;
 
+  @EpochDateTimeConverter()
   DateTime? date;
+
   // This allows support for a "date range" for a journal
+  @EpochDateTimeConverter()
   DateTime? endDate;
+  @EpochDateTimeConverter()
   DateTime? lastUpdated;
 
   late List<String> categories;
@@ -69,4 +81,9 @@ class EntryModel {
     _isNewEntry = false;
     lastUpdated = DateTime.now();
   }
+
+  factory EntryModel.fromJson(Map<String, dynamic> json) => _$EntryModelFromJson(json);
+  factory EntryModel.fromJsonString(String json) => _$EntryModelFromJson(jsonDecode(json));
+  Map<String, dynamic> toJson() => _$EntryModelToJson(this);
+  String toJsonString() => jsonEncode(toJson());
 }

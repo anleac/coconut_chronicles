@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:coconut_chronicles/core/helpers/entry_helper.dart';
 import 'package:coconut_chronicles/core/helpers/storage_helper.dart';
 import 'package:coconut_chronicles/core/models/entry_model.dart';
 import 'package:coconut_chronicles/core/storage/encryption.dart';
@@ -12,18 +11,17 @@ class EntryStorage {
   static Future<bool> saveEntry(EntryModel entry) async {
     var encryptionEnabled = await Encryption.isEncryptionEnabled();
     var file = await StorageHelper.getEntryFile(entry, encrypted: encryptionEnabled);
-    var fileContentsToWrite = EntryHelper.toJson(entry);
+    entry.markAsUpdated();
     try {
+      var fileContentsToWrite = entry.toJsonString();
       if (encryptionEnabled) {
         fileContentsToWrite = await Encryption.encrypt(fileContentsToWrite);
       }
 
-      entry.markAsUpdated();
       await file.writeAsString(fileContentsToWrite);
 
       // TODO: We have no way of handling duplicates yet
       _entries[entry.fileSaveName] = entry;
-
       return true;
     } catch (e) {
       return false;
@@ -64,7 +62,7 @@ class EntryStorage {
           fileContents = await Encryption.decrypt(fileContents);
         }
 
-        var entry = EntryHelper.fromJson(fileContents);
+        var entry = EntryModel.fromJsonString(fileContents);
         _entries[entry.fileSaveName] = entry;
         // ignore: empty_catches TODO: Decide what to do where
       } catch (e) {}

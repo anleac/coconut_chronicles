@@ -50,6 +50,6 @@ class SelectedEntryModel extends Model {
   }
 
   bool haveActiveChanges() {
-    return EntryHelper.toJson(_selectedEntry) != EntryHelper.toJson(_originalEntry);
+    return _selectedEntry.toJsonString() != _originalEntry.toJsonString();
   }
 }

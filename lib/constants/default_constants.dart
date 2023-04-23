@@ -9,6 +9,7 @@ class DefaultConstants {
     "Achievement",
     "Unique experience",
     "Gaming",
-    "Past memory"
+    "Past memory",
+    "Dream"
   ];
 }
