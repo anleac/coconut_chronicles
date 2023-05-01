@@ -31,14 +31,15 @@ class _OptionalInputsState extends State<OptionalInputs> {
             },
             isExpanded: _isExpanded,
             canTapOnHeader: true,
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                IndentedCategoryText(text: 'Categories'),
-                SizedBox(height: 8),
-                ChipCategories(categories: DefaultConstants.defaultChipSuggestions),
-              ],
-            ),
+            body: Align(
+                alignment: Alignment.topLeft,
+                child: Column(
+                  children: const [
+                    IndentedCategoryText(text: 'Categories'),
+                    SizedBox(height: 8),
+                    ChipCategories(categories: DefaultConstants.defaultChipSuggestions),
+                  ],
+                )),
           )
         ],
       ),
