@@ -8,10 +8,10 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  State createState() => HomePageState();
+  State createState() => _HomePageState();
 }
 
-class HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> {
   static const double horizontalPadding = 32;
 
   @override
