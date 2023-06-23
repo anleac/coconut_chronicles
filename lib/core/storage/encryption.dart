@@ -34,6 +34,7 @@ class Encryption {
       return;
     }
 
+    // TODO if this fails, we should probably do something about it
     var succeededConverting = await _decryptAllEntries(currentKey!, currentIv!);
 
     await _encryptedKeyStorage.delete(key: StorageConstants.encryptionKeyKey);
