@@ -1,4 +1,3 @@
-// Import the test package
 import 'package:coconut_chronicles/constants/storage_constants.dart';
 import 'package:coconut_chronicles/core/helpers/entry_helper.dart';
 import 'package:coconut_chronicles/core/storage/hidden_segment.dart';
