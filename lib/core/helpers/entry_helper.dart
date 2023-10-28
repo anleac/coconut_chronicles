@@ -20,6 +20,7 @@ class EntryHelper {
     return canSelect;
   }
 
+  // The hidden segments are prefixed and suffixed with ~~~, so we can use that to find them.
   (String sanitisedSegment, List<(String segment, int index)> hiddenSegments) processParagraph(String paragraph) {
     String sanitised = '';
     List<(String, int)> hiddenSegments = [];
