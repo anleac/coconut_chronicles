@@ -11,4 +11,7 @@ class StorageConstants {
     entrySaveExtension,
     encryptedEntrySaveExtension,
   };
+
+  static const hiddenSegmentStartTag = '<--hidden-->';
+  static const hiddenSegmentEndTag = '<--end-hidden-->';
 }
