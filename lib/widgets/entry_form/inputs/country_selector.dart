@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class CountrySelector extends StatefulWidget {
-  const CountrySelector({Key? key}) : super(key: key);
+  const CountrySelector({super.key});
 
   @override
   State<CountrySelector> createState() => _CountrySelectorState();

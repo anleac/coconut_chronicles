@@ -1,5 +1,4 @@
 import 'package:coconut_chronicles/core/helpers/entry_helper.dart';
-import 'package:coconut_chronicles/core/helpers/selected_entry_helper.dart';
 import 'package:coconut_chronicles/core/models/selected_entry_model.dart';
 import 'package:coconut_chronicles/core/storage/entry_storage.dart';
 import 'package:coconut_chronicles/widgets/dialogues/confirmation_dialogue_builder.dart';
@@ -7,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class SubmissionButtons extends StatefulWidget {
-  const SubmissionButtons({Key? key}) : super(key: key);
+  const SubmissionButtons({super.key});
 
   @override
   State<SubmissionButtons> createState() => _SubmissionButtonsState();
@@ -30,7 +29,7 @@ class _SubmissionButtonsState extends State<SubmissionButtons> {
                 ),
               if (!model.isNewEntry)
                 TextButton(
-                  onPressed: () => SelectedEntryHelper.safeSelectEntry(context, EntryHelper.newEntry()),
+                  onPressed: () => EntryHelper.safeSelectEntry(context, EntryHelper.newEntry()),
                   child: const Text('New entry'),
                 ),
               TextButton(

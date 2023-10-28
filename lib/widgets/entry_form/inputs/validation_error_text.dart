@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ValidationErrorText extends StatelessWidget {
   final String errorText;
 
-  const ValidationErrorText({Key? key, required this.errorText}) : super(key: key);
+  const ValidationErrorText({super.key, required this.errorText});
 
   @override
   Widget build(BuildContext context) {

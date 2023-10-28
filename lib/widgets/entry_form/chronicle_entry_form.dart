@@ -10,7 +10,7 @@ import 'package:coconut_chronicles/widgets/entry_form/inputs/title_text_field.da
 import 'package:flutter/material.dart';
 
 class ChronicleEntryForm extends StatelessWidget {
-  const ChronicleEntryForm({Key? key}) : super(key: key);
+  const ChronicleEntryForm({super.key});
 
   @override
   Widget build(BuildContext context) {

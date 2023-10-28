@@ -26,7 +26,7 @@ void main() async {
 }
 
 class CoreApp extends StatelessWidget {
-  const CoreApp({Key? key}) : super(key: key);
+  const CoreApp({super.key});
 
   @override
   Widget build(BuildContext context) {

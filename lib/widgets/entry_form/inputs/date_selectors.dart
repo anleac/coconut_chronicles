@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class DateSelectors extends StatefulWidget {
-  const DateSelectors({Key? key}) : super(key: key);
+  const DateSelectors({super.key});
 
   @override
   State<DateSelectors> createState() => _DateSelectorsState();

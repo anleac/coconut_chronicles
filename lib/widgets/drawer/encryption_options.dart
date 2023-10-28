@@ -4,7 +4,7 @@ import 'package:coconut_chronicles/widgets/dialogues/password_entry_dialogue.dar
 import 'package:flutter/material.dart';
 
 class EncryptionOptions extends StatefulWidget {
-  const EncryptionOptions({Key? key}) : super(key: key);
+  const EncryptionOptions({super.key});
 
   @override
   State<EncryptionOptions> createState() => _EncryptionOptionsState();

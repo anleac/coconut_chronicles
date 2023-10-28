@@ -5,8 +5,7 @@ class IndentedCategoryText extends StatelessWidget {
   final double leftIndentation;
   final String text;
 
-  const IndentedCategoryText({Key? key, this.leftIndentation = 8, this.topIndentation = 0, required this.text})
-      : super(key: key);
+  const IndentedCategoryText({super.key, this.leftIndentation = 8, this.topIndentation = 0, required this.text});
 
   @override
   Widget build(BuildContext context) {
