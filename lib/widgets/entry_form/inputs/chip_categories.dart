@@ -5,7 +5,7 @@ import 'package:scoped_model/scoped_model.dart';
 class ChipCategories extends StatefulWidget {
   final List<String> categories;
 
-  const ChipCategories({Key? key, required this.categories}) : super(key: key);
+  const ChipCategories({super.key, required this.categories});
 
   @override
   State<ChipCategories> createState() => _ChipCategoriesState();

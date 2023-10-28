@@ -5,7 +5,7 @@ import 'package:coconut_chronicles/widgets/entry_list_tile.dart';
 import 'package:flutter/material.dart';
 
 class ChronicleEntryList extends StatefulWidget {
-  const ChronicleEntryList({Key? key}) : super(key: key);
+  const ChronicleEntryList({super.key});
 
   @override
   State<ChronicleEntryList> createState() => _ChronicleEntryListState();

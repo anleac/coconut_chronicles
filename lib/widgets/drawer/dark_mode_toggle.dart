@@ -2,7 +2,7 @@ import 'package:coconut_chronicles/core/storage/theming_model.dart';
 import 'package:flutter/material.dart';
 
 class DarkModeToggle extends StatefulWidget {
-  const DarkModeToggle({Key? key}) : super(key: key);
+  const DarkModeToggle({super.key});
 
   @override
   State<DarkModeToggle> createState() => _DarkModeToggleState();

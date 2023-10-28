@@ -5,7 +5,7 @@ class EntryListTitle extends StatelessWidget {
   final EntryModel entry;
   final VoidCallback onTap;
 
-  const EntryListTitle({Key? key, required this.entry, required this.onTap}) : super(key: key);
+  const EntryListTitle({super.key, required this.entry, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

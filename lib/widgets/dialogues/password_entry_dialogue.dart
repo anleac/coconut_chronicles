@@ -2,7 +2,7 @@ import 'package:coconut_chronicles/core/storage/encryption.dart';
 import 'package:flutter/material.dart';
 
 class PasswordEntryDialogue extends StatefulWidget {
-  const PasswordEntryDialogue({Key? key}) : super(key: key);
+  const PasswordEntryDialogue({super.key});
 
   @override
   State<PasswordEntryDialogue> createState() => _PasswordEntryDialogueState();

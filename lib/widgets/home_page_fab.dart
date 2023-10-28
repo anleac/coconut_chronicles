@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomePageFab extends StatefulWidget {
-  const HomePageFab({Key? key}) : super(key: key);
+  const HomePageFab({super.key});
 
   @override
   State<HomePageFab> createState() => _HomePageFabState();

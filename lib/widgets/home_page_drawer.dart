@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class HomePageDrawer extends StatefulWidget {
-  const HomePageDrawer({Key? key}) : super(key: key);
+  const HomePageDrawer({super.key});
 
   @override
   State<HomePageDrawer> createState() => _HomePageDrawerState();

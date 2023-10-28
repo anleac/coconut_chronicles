@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class DescriptionTextField extends StatelessWidget {
-  const DescriptionTextField({Key? key}) : super(key: key);
+  const DescriptionTextField({super.key});
 
   @override
   Widget build(BuildContext context) {

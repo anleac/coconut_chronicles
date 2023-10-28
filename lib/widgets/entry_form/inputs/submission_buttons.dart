@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class SubmissionButtons extends StatefulWidget {
-  const SubmissionButtons({Key? key}) : super(key: key);
+  const SubmissionButtons({super.key});
 
   @override
   State<SubmissionButtons> createState() => _SubmissionButtonsState();

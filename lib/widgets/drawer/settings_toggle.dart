@@ -2,7 +2,7 @@ import 'package:coconut_chronicles/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class SettingsToggle extends StatelessWidget {
-  const SettingsToggle({Key? key}) : super(key: key);
+  const SettingsToggle({super.key});
 
   @override
   Widget build(BuildContext context) {
