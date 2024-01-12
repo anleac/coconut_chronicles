@@ -1,22 +1,28 @@
 class HiddenSegment {
-  final String segment;
-  final int index;
+  final String _segment;
+  final int _index;
 
-  HiddenSegment(this.segment, this.index);
+  bool _decrypted = false;
+  String _decryptedSegment = '';
+
+  String get segment => _decrypted ? _decryptedSegment : _segment;
+  int get index => _index;
+
+  HiddenSegment(this._segment, this._index);
 
   @override
   bool operator ==(Object other) {
     if (other is HiddenSegment) {
-      return segment == other.segment && index == other.index;
+      return _segment == other._segment && _index == other._index;
     }
     return false;
   }
 
   @override
-  int get hashCode => segment.hashCode ^ index.hashCode;
+  int get hashCode => _segment.hashCode ^ _index.hashCode;
 
   @override
   String toString() {
-    return 'HiddenSegment{segment: $segment, index: $index}';
+    return 'HiddenSegment{segment: $_segment, index: $_index}';
   }
 }

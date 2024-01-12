@@ -48,7 +48,6 @@ class EntryHelper {
           paragraph.startsWith(StorageConstants.hiddenSegmentEndTag, i)) {
         isHidden = false;
         hiddenSegments.add(HiddenSegment(hiddenSegment.toString(), hiddenIndex));
-        // Clear the hidden segment buffer
         hiddenSegment.clear();
         // Skip the rest of the tag
         i += StorageConstants.hiddenSegmentEndTag.length - 1;
