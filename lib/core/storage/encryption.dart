@@ -11,19 +11,28 @@ class Encryption {
   static const _encryptedKeyStorage = FlutterSecureStorage();
 
   // List of platforms that support encryption
-  static bool get supportedPlatform => Platform.isAndroid || Platform.isIOS || Platform.isMacOS || Platform.isWindows;
+  static bool get supportedPlatform =>
+      Platform.isAndroid ||
+      Platform.isIOS ||
+      Platform.isMacOS ||
+      Platform.isWindows ||
+      Platform.isLinux;
 
   static Future<bool> isEncryptionEnabled() async {
     if (!supportedPlatform) {
       return false;
     }
 
-    return await _encryptedKeyStorage.containsKey(key: StorageConstants.encryptionKeyKey);
+    return await _encryptedKeyStorage.containsKey(
+        key: StorageConstants.encryptionKeyKey);
   }
 
   static Future<void> setEncryptionKey(String key) async {
-    await _encryptedKeyStorage.write(key: StorageConstants.encryptionKeyKey, value: _padKeyIfNeeded(key));
-    await _encryptedKeyStorage.write(key: StorageConstants.encryptionIvKey, value: IV.fromLength(ivLength).base64);
+    await _encryptedKeyStorage.write(
+        key: StorageConstants.encryptionKeyKey, value: _padKeyIfNeeded(key));
+    await _encryptedKeyStorage.write(
+        key: StorageConstants.encryptionIvKey,
+        value: IV.fromLength(ivLength).base64);
   }
 
   static Future<void> clearEncryptionKey() async {
@@ -63,8 +72,10 @@ class Encryption {
     return encrypter.decrypt64(data, iv: IV.fromBase64(iv));
   }
 
-  static Future<String?> _getKey() async => await _encryptedKeyStorage.read(key: StorageConstants.encryptionKeyKey);
-  static Future<String?> _getIv() async => await _encryptedKeyStorage.read(key: StorageConstants.encryptionIvKey);
+  static Future<String?> _getKey() async =>
+      await _encryptedKeyStorage.read(key: StorageConstants.encryptionKeyKey);
+  static Future<String?> _getIv() async =>
+      await _encryptedKeyStorage.read(key: StorageConstants.encryptionIvKey);
 
   static Future<bool> _decryptAllEntries(String key, String iv) async {
     // TODO Implement this method to decrypt all entries in the storage
